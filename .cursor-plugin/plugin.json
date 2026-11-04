@@ -1,0 +1,12 @@
+{
+  "name": "seo-geo-skills",
+  "displayName": "SEO and GEO Skills",
+  "description": "Skills to run SEO and GEO for a website: a playbook, an audit, an AI visibility check, a page writer and a page refresh, plus how to connect Sightkick.",
+  "version": "1.0.0",
+  "author": { "name": "Fabio Bergmann", "url": "https://fabio.xyz" },
+  "license": "MIT",
+  "homepage": "https://github.com/fabio-bergmann/seo-geo-skills",
+  "repository": "https://github.com/fabio-bergmann/seo-geo-skills",
+  "keywords": ["SEO", "GEO", "AEO", "AI search", "AI visibility", "site audit"],
+  "skills": "./skills/"
+}
