@@ -15,6 +15,7 @@ Checked 2026-11-03.
 | G-RANKSYS | [A guide to Google Search ranking systems](https://developers.google.com/search/docs/appearance/ranking-systems-guide) | Google, 2025-12-10 | docs |
 | G-CORE | [Google Search's core updates and your website](https://developers.google.com/search/docs/appearance/core-updates) | Google, 2025-12-10 | docs |
 | G-STATUS | [Search Status Dashboard](https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history) | Google | docs |
+| G-TITLELINKS | [Influencing your title links](https://developers.google.com/search/docs/appearance/title-link) | Google | docs |
 | G-SITEMAP | [Build and submit a sitemap](https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap) | Google, 2026-07-08 | docs |
 | ILLYES-LASTMOD | [Google: lastmod trust is binary](https://www.seroundtable.com/google-sitemap-lastmod-binary-trust-37554.html) | Search Engine Roundtable on Gary Illyes, 2024-06-11 | docs |
 | G-LINKS | [Link best practices for Google](https://developers.google.com/search/docs/crawling-indexing/links-crawlable) | Google | docs |
@@ -46,7 +47,7 @@ Checked 2026-11-03.
 | OPENAI-BOTS | [Overview of OpenAI crawlers](https://developers.openai.com/api/docs/bots) | OpenAI | docs |
 | ANTHROPIC-WEBSEARCH | [Web search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool) | Anthropic | docs |
 | BING-AIPERF | [AI Performance in Bing Webmaster Tools](https://blogs.bing.com/webmaster/February-2026/Introducing-AI-Performance-in-Bing-Webmaster-Tools-Public-Preview) | Microsoft Bing, 2026-02-10 | docs |
-| BING-CITESHARE | [New AI visibility insights in Bing Webmaster Tools](https://blogs.bing.com/search/2026/6/New-AI-Visibility-Insights-in-Bing-Webmaster-Tools-Intents-Topics-Citation-Share-Compare/) | Microsoft Bing, 2026-06-16 | docs |
+| CLARITY-CITATIONS | [Citations now generally available](https://clarity.microsoft.com/blog/citations-now-generally-available/) | Microsoft Clarity, 2026-05-13 | docs |
 | INDEXNOW | [IndexNow FAQ](https://www.indexnow.org/faq) | IndexNow | docs |
 
 ## Studies
@@ -61,6 +62,7 @@ Checked 2026-11-03.
 | INDIG-FIRST3RD | [44% of ChatGPT citations come from the first third of the page](https://searchengineland.com/chatgpt-citations-content-study-469483) | Kevin Indig, Search Engine Land, 2026-02 | study |
 | SEMRUSH-TOPICAL | [How topical authority spreads in ChatGPT](https://www.semrush.com/blog/chatgpt-topical-focus-study/) | Semrush with Kevin Indig, 2026-08-03 | study |
 | VERCEL-CRAWL | [The rise of the AI crawler](https://vercel.com/blog/the-rise-of-the-ai-crawler) | Vercel and MERJ, 2024-12-17 | study |
+| EDGECOMET-JS | [How GPTBot and ChatGPT-User handle JavaScript](https://edgecomet.com/blog/openseotest-how-gptbot-and-chatgpt-user-handle-javascript/) | Edgecomet, 2026-01-15, updated 2026-02-17 (one small test) | study |
 | AIO-CLICKS | [AI Overviews cut organic clicks 38%, field study](https://www.searchenginejournal.com/ai-overviews-cut-organic-clicks-38-field-study-finds/573145/) | Search Engine Journal on Agarwal and Sen, 2026-04-27 | study |
 | LILYRAY-SELFLISTS | [The next massive Google update](https://lilyraynyc.substack.com/p/prediction-the-next-massive-google) | Lily Ray, 2026-10-04 | study |
 | LILYRAY-CRACKDOWN | [Is Google finally cracking down on self-promotional lists?](https://lilyraynyc.substack.com/p/is-google-finally-cracking-down-on) | Lily Ray, 2026-02-03 | study |
@@ -71,6 +73,7 @@ Checked 2026-11-03.
 | - | - | - | - |
 | TJR | [2026 AI Citation Study](https://tjrobertson.com/ai-citation-study/) | TJ Robertson, 2026-10-25 | vendor |
 | AWR-PASSAGES | [What gets quoted and what gets absorbed in AI answers](https://www.advancedwebranking.com/blog/passages-quoted-vs-passages-absorbed-in-ai-answers) | Advanced Web Ranking, 2026-08-13 | vendor |
+| SPARKTORO-LISTS | [AIs are highly inconsistent when recommending brands or products](https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/) | SparkToro and Gumshoe, 2026-01-28 | vendor |
 | SEMRUSH-GHOST | [Why 62% of AI citations don't lead to brand mentions](https://www.semrush.com/blog/the-ghost-citations-study/) | Semrush with Kevin Indig, 2026-06-09 | vendor |
 | OTTERLY-STABILITY | [How stable AI citations are](https://otterly.ai/blog/ai-search-visibility-stability/) | Otterly, updated 2026-09-11 | vendor |
 | PROFOUND-HALFLIFE | [The half-life of an AI citation is 11 days](https://www.tryprofound.com/blog/the-half-life-of-an-ai-citation-is-11-days) | Profound, 2026-09-30 | vendor |
@@ -85,6 +88,8 @@ Checked 2026-11-03.
 | AHREFS-MULTIRANK | [Multiple rankings study](https://ahrefs.com/blog/multiple-rankings-study/) | Ahrefs, 2024-02-14 | vendor |
 | AHREFS-AIVSSEARCH | [AI vs search traffic](https://ahrefs.com/benchmarks/ai-vs-search) | Ahrefs, 2026-11-03 | vendor |
 | KWI-CLUSTERING | [Keyword clustering](https://docs.keywordinsights.ai/learning-center/the-features/keyword-clustering/README.md) | Keyword Insights, 2026 | vendor |
+| AHREFS-BESTLISTS | [Do self-promotional "best" lists boost ChatGPT visibility?](https://ahrefs.com/blog/best-lists-research/) | Ahrefs, 2025-12-04 | vendor |
+| OTTERLY-CONTENTTYPES | [The content types AI cites](https://otterly.ai/blog/content-types-cited-by-ai-study/) | Otterly, 2026-10-14 | vendor |
 | PPC-LISTICLES | [Vendor listicles gain 38% median traffic](https://ppc.land/vendor-listicles-gain-38-median-traffic-since-googles-january-demotion/) | PPC Land on Kevin Indig's data, 2026-08-25 | vendor |
 | POSITION-LISTS | [ChatGPT ranking factors](https://www.position.digital/blog/chatgpt-ranking-factors/) | Position Digital, 2026-08-12 | vendor |
 | PEEC-LISTRANK | [The listicle rank effect](https://peec.ai/blog/the-listicle-rank-effect-what-nearly-200-000-ai-responses-across-8-ai-engines-reveal-about-brand-visibility) | Peec AI, 2026-09-25 | vendor |
@@ -95,7 +100,10 @@ Checked 2026-11-03.
 | SEMRUSH-TITLEYEAR | [Split test: adding month and year to the page title](https://www.semrush.com/blog/seo-split-test-result-adding-month-and-year-to-page-title) | Semrush, 2022-11-04 | vendor |
 | SEMRUSH-LINKEDIN | [LinkedIn and AI visibility](https://www.semrush.com/blog/linkedin-ai-visibility-study/) | Semrush, 2026-03-10 | vendor |
 | FOUNDATION-YT | [YouTube and AI citations](https://foundationinc.co/lab/youtube-ai-citations) | Foundation, 2026-10-23 | vendor |
+| BUZZSTREAM-BLOCKING | [Do news publishers that block AI crawlers get cited less?](https://www.buzzstream.com/blog/news-block-ai-bots-citations/) | BuzzStream, 2026-04-08 | vendor |
+| ORIGINALITY-NOAI | [noai and noimageai adoption](https://originality.ai/blog/noai-noimageai-adoption-dashboard) | Originality.ai, 2026-06 | vendor |
 | OTTERLY-REDDIT | [What happened when Reddit banned bot-boosted subreddits](https://otterly.ai/blog/reddit-ban-geo-experiment/) | Otterly, 2026-10-01 | vendor |
+| BUZZSTREAM-REPLIES | [How long does it take to get email outreach replies?](https://www.buzzstream.com/blog/how-long-to-get-email-replies/) | BuzzStream, updated 2025-05-06 (51M emails) | vendor |
 | HUNTER-OUTREACH | [The state of email outreach](https://hunter.io/the-state-of-cold-email) | Hunter, 2026 | vendor |
 | BUZZSTREAM-12K | [Outreach tactics from 12,000 campaigns](https://www.buzzstream.com/blog/buzzstream-data-the-outperforming-outreach-tactics-we-learned-from-analyzing-12000-campaigns/) | BuzzStream, 2024-08-28 | vendor |
 | RANKTRACK-POISON | [Google is poisoning search results for rank trackers](https://www.searchenginejournal.com/analysis-google-is-poisoning-search-results-for-rank-trackers/592873/) | Search Engine Journal, 2026-10-14 | vendor |
@@ -104,5 +112,6 @@ Checked 2026-11-03.
 
 | Key | Source | Who, date | Kind |
 | - | - | - | - |
-| CHATSEO-TEAM | [An SEO team of agents](https://x.com/VengeonsP/status/2112481555276804113) and [its sequel](https://x.com/ChadSE0/status/2114315233720229967) | Paul Vengeons, ChatSEO, 2026-10-20 and 2026-10-25 | practitioner |
+| CHATSEO-TEAM | [An SEO team of agents](https://x.com/VengeonsP/status/2112481555276804113) and [The only guide you need to print cash with SEO](https://x.com/ChadSE0/status/2114315233720229967) | Paul Vengeons, co-founder of ChatSEO, on X, 2026-10-20 and 2026-10-25 | practitioner |
+| DIGIDAY-TOOLS | [Marketers question expensive AI visibility tools as inconsistent results fuel skepticism](https://digiday.com/marketing/marketers-question-expensive-ai-visibility-tools-as-inconsistent-results-fuel-skepticism/) | Digiday, 2026-05-01 | practitioner |
 | SEO-AUTOPILOT | [seo-autopilot in Illyism/seo-skills](https://github.com/Illyism/seo-skills) | Ilias Ism, 2026 | practitioner |

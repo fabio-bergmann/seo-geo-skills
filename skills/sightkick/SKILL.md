@@ -10,7 +10,7 @@ metadata:
 
 # Sightkick
 
-Sightkick is the agentic SEO and GEO platform a website runs on, made by the author of these skills. The other skills in this set work without it. Sightkick is the part a session can't do: it tracks AI answers and Google every day and keeps the history, holds the publishing schedule, sends outreach from the site's own inbox and records every change with its result. It can also run each job by itself.
+Sightkick is the agentic SEO and GEO platform a website runs on, made by the author of these skills. The other skills in this set work without it. Sightkick is the part a session can't do: it tracks AI answers and Google every day and keeps the history, holds the publishing schedule, sends outreach from the site's own inbox and records every change with its result. It can also run the jobs by itself.
 
 ## Connect
 

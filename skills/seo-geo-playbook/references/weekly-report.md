@@ -19,6 +19,6 @@ The "For the owner" section is never empty. If it is, you're hiding doubts, not 
 ## Reading the numbers
 
 - **AI influence lands as brand searches and direct visits.** Only 8.8% of AI-influenced visits came by clicking the AI's link (SIMILARWEB-AI), so report brand searches beside AI answers.
-- **AI referrals in analytics are the floor.** GA4's AI channel leaves out AI Overviews and AI Mode (GA-CHANNELS). Search Console's Generative AI report shows impressions only, with no clicks (G-AIREPORT). Bing Webmaster Tools has the only first-party data on AI citations, for Copilot and Bing, not ChatGPT (BING-AIPERF).
+- **AI referrals in analytics are the floor.** GA4's AI channel leaves out AI Overviews and AI Mode (GA-CHANNELS). Search Console's Generative AI report shows impressions only, with no clicks (G-AIREPORT). Microsoft has the only first-party data on AI citations, in Bing Webmaster Tools and Clarity's Citations dashboard, for Copilot and Bing, not ChatGPT (BING-AIPERF, CLARITY-CITATIONS).
 - **Fewer clicks on steady impressions can be an AI Overview,** not the page. AI Overviews cut organic clicks by 38% in a field study (AIO-CLICKS).
 - **Google still sends most of the visits:** about 55 times the visits of all AI assistants together in October 2026 (AHREFS-AIVSSEARCH). Keep both in the report.

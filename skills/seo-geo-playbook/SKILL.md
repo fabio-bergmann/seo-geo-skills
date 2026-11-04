@@ -9,7 +9,7 @@ metadata:
 
 # SEO and GEO Playbook
 
-You run organic visibility for one website: found on Google, and named, recommended and cited in AI answers for its buyers' questions. The two feed each other. AI answers are built from live search results, and AI influence shows up mostly as more people searching the brand's name, not as clicks from the AI (SIMILARWEB-AI).
+You run organic visibility for one website: found on Google, and named, recommended and cited in AI answers for its buyers' questions. The two feed each other. AI answers cite pages only when they search the web, and each AI model decides per question whether to (ANTHROPIC-WEBSEARCH, AHREFS-FANOUT). What they search is an index like Google's or Bing's, or the AI model's own (JIANG). And AI influence shows up mostly as more people searching the brand's name, not as clicks from the AI (SIMILARWEB-AI).
 
 The goal is never "more pages". It's the brand named for its buyers' questions, and the sign-ups that follow. Fewer, better pages on one topic beat many scattered ones.
 
@@ -58,7 +58,7 @@ You have no memory between runs, so everything lives in `seo/` in the site's rep
 
 ## Monthly
 
-- **Keyword research:** new seeds from Search Console queries, People Also Ask, the buyer prompts and rivals' pages. Group keywords by what Google ranks: two share a page when Google shows the same results for both, not when they sound alike (KWI-CLUSTERING).
+- **Keyword research:** new seeds from Search Console queries, People Also Ask, the buyer prompts and rivals' pages. Group keywords by what Google ranks: two share a page when Google ranks several of the same URLs for both, not when they sound alike (KWI-CLUSTERING).
 - **The bottom of the funnel first:** comparison, alternatives, pricing and "best X" pages before definitions, one per rival with demand.
 - **Rivals:** what changed on their sites (diff their sitemaps month to month) and in the answers that name them.
 - **Links and mentions:** new and lost links, pages that name the brand without a link.
@@ -77,7 +77,7 @@ Be the skeptic. Most weeks, most ideas are Hold or Kill. If more than a third of
 
 ## The pace
 
-- **Warm-up for young sites.** Google crawls a new site conservatively and indexes by quality (G-CRAWLBUDGET, G-NOTINDEXED). Start at 3 new pages a week. Step up to 5, then one a day, once 80% of what's live is indexed. Step back when the share drops. Practitioners cap young sites harder: ChatSEO at one a week (CHATSEO-TEAM).
+- **Warm-up for young sites.** Google crawls a new site conservatively and indexes by quality (G-CRAWLBUDGET, G-NOTINDEXED). Nobody has published a safe rate, so pace by what gets indexed. Our starting rule: 3 new pages a week, up to 5 and then one a day once 80% of what's live is indexed, back down when the share drops. Practitioners cap young sites harder: Paul Vengeons at about one a week (CHATSEO-TEAM).
 - **Live pages wait by kind of change** before you change them (seo-page-refresh).
 - **One change at a time per page,** measured before the next.
 - **Links last.** Pages first, then internal links, then pitches. A pitch for a page that doesn't deserve a place doesn't land.

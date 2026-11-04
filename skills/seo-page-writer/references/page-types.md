@@ -1,10 +1,10 @@
 # Page Types
 
-What each page type needs. The pages that sell and get cited for software are comparisons, alternatives, reviews and pricing, so these come first. The keys in brackets are in `sources.md`.
+What each page type needs. For software, the pages that carry buying intent are comparisons, alternatives and pricing, so these come first. AI answers cite lists most (OTTERLY-CONTENTTYPES), and ChatGPT's searches lean on vendors' own pricing and product pages (AHREFS-FANOUT). The keys in brackets are in `sources.md`.
 
 ## Evidence
 
-A page about a rival makes claims about someone else's product, and every claim about a named company carries its source (GSP). Strongest first:
+A page about a rival makes claims about someone else's product, so every claim about a named company carries its source. Google's guidance asks you to fact-check generated content and warns against deceiving readers (G-GENAI, G-HELPFUL). Strongest first:
 
 1. **First-hand:** the brand used the rival, with an account, its own screenshot or a test it ran, dated. Only when it happened. Never "we tested" without a record of the test.
 2. **The brand's own data:** what AI models said about both brands, counted and dated, with the method in one line.
@@ -45,20 +45,20 @@ URL `/alternatives/{rival}`. Title: "{N} {Rival} Alternatives for {the buyer's r
 5. **When to stay with {Rival}:** one honest paragraph.
 6. **FAQ and disclosure,** as on a comparison page.
 
-Each option needs a dated price and two sourced claims. Naming the real options is good for the page too: passages AI answers quoted named their entities far more often than passages they used without credit (AWR-PASSAGES).
+Each option needs a dated price and two sourced claims. Naming the real options is good for the page too: pages naming six or more brands drew about 1.76 times the ChatGPT citations of pages naming none, in one vendor study (POSITION-LISTS).
 
 ## Lists that rank the brand ("best X")
 
-A brand's own "best X" list can still win Google traffic, but AI Overviews left the self-ranking author out of the recommendation 83% of the time in one study (LILYRAY-SELFLISTS).
+A brand's own "best X" list can still win Google traffic: 62% of vendor-written lists gained it this year (PPC-LISTICLES). But AI Overviews left the self-ranking author out of the recommendation 83% of the time in one study (LILYRAY-SELFLISTS).
 
 - **At most one per topic group.** Audience variants ("for beginners", "for small teams") are sections of it, unless Google ranks different pages for them.
 - **Never the brand first by default.** Order by a stated criterion (best for a segment, price, alphabetical) and put the brand where that criterion puts it, or group by "best for" with no overall rank.
 - **Disclosed in the first lines:** "{Brand} is one of the tools on this list; we make it."
 - **At least one honest limit** in the brand's own entry.
 - **Every option linked, priced and dated,** with the evidence above.
-- **Updated at least yearly, with real changes.** Most lists AI answers cite were updated within the year.
+- **Updated at least yearly, with real changes.** 79.1% of the lists ChatGPT cited had been updated that year (AHREFS-BESTLISTS).
 
-Better than writing one: getting onto the third-party lists AI answers already cite (ai-visibility-check, the pitch list).
+Better than writing one: getting onto the third-party lists AI answers already cite (ai-visibility-check, the pitch list). Being on them was the strongest of the factors one vendor study tested (POSITION-LISTS).
 
 ## Integration: "{Brand} + {Tool}"
 

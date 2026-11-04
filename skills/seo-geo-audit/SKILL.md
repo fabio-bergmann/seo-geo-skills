@@ -30,28 +30,28 @@ No Node? Fetch robots.txt, the sitemap and the 10–20 pages that matter most yo
 ### Gate 1: can bots get in?
 
 - **robots.txt lets the search bots and the user fetchers in:** Googlebot, Bingbot, OAI-SearchBot, ChatGPT-User, Claude-SearchBot, Claude-User, PerplexityBot and Perplexity-User. OpenAI: "Sites that are opted out of OAI-SearchBot will not be shown in ChatGPT search answers" (OPENAI-BOTS). The crawl prints a row per bot.
-- **Training bots are the owner's choice:** GPTBot, ClaudeBot, Google-Extended and CCBot. Blocking them doesn't stop citations, but Google-Extended also decides whether the Gemini app can ground answers in the site (G-AITRAIN).
-- **No firewall answers those bots with a 403 or a challenge.** robots.txt can say yes while a CDN's bot protection says no. You can't test this honestly by faking a bot's user agent, and verified bots are checked by IP anyway. Ask the owner to check the host's bot settings, and read the server logs or Bing Webmaster Tools' crawl data if you can reach them.
+- **Training bots are the owner's choice:** GPTBot, ClaudeBot, Google-Extended and CCBot. Blocking GPTBot or ClaudeBot has no measured citation cost: 88.2% of sites blocking GPTBot were still cited in one study (BUZZSTREAM-BLOCKING). But Google-Extended also decides whether the Gemini app can ground answers in the site (G-AITRAIN).
+- **No firewall answers those bots with a 403 or a challenge.** robots.txt can say yes while a CDN's bot protection says no. A firewall that verifies bots by their IP addresses may answer a faked user agent differently from the real bot, so a fetch with a bot's name isn't proof. Ask the owner to check the host's bot settings, and read the server logs or Bing Webmaster Tools' crawl data if you can reach them. The bots' IP lists are in their makers' docs (OPENAI-BOTS).
 - **Nothing blocks quoting:** no `noindex` where it shouldn't be, and no `nosnippet`, `max-snippet:0` or `data-nosnippet` on content that should be cited (G-ROBOTSMETA). Google's AI features use pages that are indexed and eligible for a snippet (G-AIFEAT). Search Console's "Search generative AI" setting stays on Include (G-SGAI).
-- **What matters is in the raw HTML:** the content, prices, plans, tables, dates, canonical and links. No major AI crawler runs JavaScript (VERCEL-CRAWL), and Google renders it later (G-JS). The crawl lists pages with under 150 words in the raw HTML.
+- **What matters is in the raw HTML:** the content, prices, plans, tables, dates, canonical and links. ChatGPT-User and Claude's and Perplexity's bots don't run JavaScript (VERCEL-CRAWL, EDGECOMET-JS), and Google renders it later (G-JS). OAI-SearchBot may have started rendering some pages in late 2026, unconfirmed. The crawl lists pages with under 150 words in the raw HTML.
 
 ### Gate 2: is it indexed?
 
 - **The sitemap** exists, is listed in robots.txt and holds only pages that answer 200, are their own canonical and can be indexed. The crawl lists the ones that don't.
-- **Search Console's page indexing report:** "Crawled – currently not indexed" is a verdict on quality, not a technical fault (G-NOTINDEXED). A new site is crawled conservatively (G-CRAWLBUDGET), so publish at the pace pages get indexed.
+- **Search Console's page indexing report:** "Crawled – currently not indexed" is usually a verdict on quality, not a technical fault (G-NOTINDEXED). A new site is crawled conservatively (G-CRAWLBUDGET), so publish at the pace pages get indexed.
 - **No shortcuts:** the Indexing API is for job postings and livestreams only, and IndexNow reaches Bing, not Google (G-INDEXINGAPI, INDEXNOW).
-- **Bing too:** Bing's index grounds Copilot, and Bing Webmaster Tools' AI Performance report is the only first-party data on AI citations. It doesn't cover ChatGPT (BING-AIPERF).
+- **Bing too:** Bing's index grounds Copilot. Microsoft has the only first-party data on AI citations: Bing Webmaster Tools' AI Performance report and Clarity's Citations dashboard (BING-AIPERF, CLARITY-CITATIONS). Neither covers ChatGPT, and Search Console's AI report shows impressions only (G-AIREPORT).
 
 ### Gate 3: can each page be understood?
 
 - One title per page, in the searcher's words and not repeated elsewhere. One H1. A meta description.
 - The canonical points to the page itself unless it is a true duplicate.
-- Two pages ranking for one search is a problem only when they split the clicks and neither wins: 1 in 80 sampled cases needed a fix (AHREFS-MULTIRANK).
+- Two pages ranking for one search isn't a problem by itself: on Ahrefs' own site, 1 of 80 sampled cases needed a fix (AHREFS-MULTIRANK, 2024). Act when they split the clicks and neither wins.
 - Core Web Vitals are a floor (LCP up to 2.5 s, INP under 200 ms, CLS under 0.1), not a lever beyond it (G-CWV).
 
 ### Gate 4: internal links
 
-- **Every page that matters has at least 3 internal links in,** with anchor text that says where they go (G-LINKS). Orphans first: pages in the sitemap with no link in. Take the counts from the crawl, never from memory.
+- **Every page that matters has at least 3 internal links in,** with anchor text that says where they go. Google asks for at least one link from another page (G-LINKS); 3 is our floor. Orphans first: pages in the sitemap with no link in. Take the counts from the crawl, never from memory.
 - **Money pages** (pricing, comparisons, the product) are linked from the pages that get the traffic.
 
 ### Gate 5: entity basics
@@ -59,7 +59,7 @@ No Node? Fetch robots.txt, the sitemap and the 10–20 pages that matter most yo
 - **The same name, one-line description and links everywhere** the brand appears: the site, its social profiles, directories and review sites.
 - **Structured data for rich results and a clear entity,** not for AI citations: Organization with `sameAs` and a stable `@id`, plus Breadcrumb and Article where they fit, marking up only what's visible (G-GALLERY). Google: "Structured data isn't required for generative AI search" (G-AIOPT).
 - **A plain-HTML page per brand task** (pricing, cancelling, refunds, support) that answers in its first lines. Google is testing a box of "one or two official places on the web to complete a specific task" (G-OFFICIAL).
-- **llms.txt is optional, never a fix.** Coding agents read it, answer engines don't (AHREFS-LLMSTXT).
+- **llms.txt is optional, never a fix.** Coding agents read it, AI answers don't use it (AHREFS-LLMSTXT).
 
 ## 3. Report
 

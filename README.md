@@ -1,8 +1,8 @@
 # SEO and GEO Skills for AI Agents
 
-Five skills that let your AI agent run SEO and GEO for your site: found on Google, and named, recommended and cited in AI answers. They work in Claude Code, Codex, Cursor, Gemini CLI and any agent that reads `SKILL.md` files, with no account and no API key.
+Agentic SEO for Claude Code, Codex, Cursor and Gemini CLI: five skills that let your AI agent run SEO and GEO for your site, so it's found on Google and named, recommended and cited in AI answers. They work in any agent that reads `SKILL.md` files, with no account and no API key. A sixth skill connects Sightkick, if you want it.
 
-Built by [Fabio Bergmann](https://fabio.xyz). I grow my own company with AI agents, in public, and these are the skills mine use. Want them run every day with real data? [Sightkick](https://sightkick.so/?utm_source=seo-geo-skills&utm_medium=readme) is the platform I build for that. It gives your agent the tracking, publishing and outreach a session can't do, and runs the jobs by itself if you want.
+Built by [Fabio Bergmann](https://fabio.xyz). I grow my own company with AI agents, in public, and give away how. These skills hold the rules my own SEO agent works from. Want them run every day with real data? [Sightkick](https://sightkick.so/?utm_source=seo-geo-skills&utm_medium=readme) is the platform I build for that. It gives your agent the tracking, publishing and outreach a session can't do, and runs the jobs by itself if you want.
 
 ## Install
 
@@ -43,7 +43,7 @@ That works for Claude Code, Codex, Cursor, OpenCode, Gemini CLI and dozens of ot
 
 ## What they never do
 
-- No paid, swapped or traded links. They break Google's spam policies, and some SEO skills sell them anyway.
+- No paid, swapped or traded links. They break Google's spam policies.
 - No fake reviews, accounts, authors or tests, and no invented numbers.
 - No list that ranks your own product first by default, and no mass-produced template pages.
 - No date bumps without a real change.
@@ -67,7 +67,7 @@ I build Sightkick, so take this section as the ad it is. The other skills never 
 
 ## Credits
 
-The `seo/` notes folder follows Ilias Ism's [seo-autopilot](https://github.com/Illyism/seo-skills). The skeptic gate, BLOCKED and the doubts section for the owner follow Paul Vengeons' agent SEO team at ChatSEO.
+The `seo/` notes folder follows Ilias Ism's [seo-autopilot](https://github.com/Illyism/seo-skills). The skeptic gate, BLOCKED and the doubts section for the owner follow Paul Vengeons' guides to running SEO with a team of agents.
 
 ## Contributing
 
