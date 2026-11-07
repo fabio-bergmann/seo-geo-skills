@@ -89,7 +89,7 @@ Each tool's description lists its views or actions with their fields.
 - `get_pages` – Get pages (view: list, page, check_topic, revisions, receipt, shipped, calendar, schedule, images)
 - `score_page` – Score a page
 - `update_page` – Write and change pages (action: create, edit, delete, register, unregister, log_change)
-- `update_page_images` – Change a page's images (action: upload, alt, featured, position, remove)
+- `update_page_images` – Change a page's images (action: screenshot, upload, alt, featured, position, remove)
 - `schedule_page` – Schedule pages (action: place, unplace, set_slots)
 - `publish_page` – Publish pages (action: publish, republish, take_down, undo_edit)
 - `generate_page` – Have Sightkick write a page
