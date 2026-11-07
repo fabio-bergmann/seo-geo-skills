@@ -27,6 +27,7 @@ Checked 2026-11-03.
 | G-ROBOTSMETA | [Robots meta tag specifications](https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag) | Google, 2026-03-24 | docs |
 | G-SGAI | [Search generative AI control](https://support.google.com/webmasters/answer/16908024?hl=en) | Search Console Help | docs |
 | G-AITRAIN | [Supporting a shared AI training control](https://developers.google.com/search/blog/2026/10/ai-training-control) | Google (John Mueller), 2026-10-30 | docs |
+| G-AGENT | [Google-Agent](https://developers.google.com/crawling/docs/crawlers-fetchers/google-agent) and [user-triggered fetchers](https://developers.google.com/crawling/docs/crawlers-fetchers/google-user-triggered-fetchers) | Google, updated 2026-08-19 | docs |
 | G-AIFEAT | [AI features and your website](https://developers.google.com/search/docs/appearance/ai-features) | Google | docs |
 | G-AIOPT | [AI optimization guide](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide) | Google, 2026-07-10 | docs |
 | G-GALLERY | [Search gallery: structured data features](https://developers.google.com/search/docs/appearance/structured-data/search-gallery) | Google, 2026-10-16 | docs |
