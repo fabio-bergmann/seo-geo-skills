@@ -4,7 +4,7 @@ description: Checks how AI answers treat a brand by asking a fixed set of buyer 
 license: MIT
 metadata:
   author: Fabio Bergmann
-  version: 1.0.0
+  version: 1.0.4
 ---
 
 # AI Visibility Check
@@ -32,7 +32,9 @@ Use the AI models you can reach, with web search on: links in an answer come onl
 
 Stamp every run with the AI model, API or app, the date and whether it searched. API answers aren't app answers: Google plus OpenAI's API recover only about a quarter of the pages ChatGPT's app cites (JIANG), and forcing search on prompts that don't search on their own moved measured visibility by about 20 points (GRAPHITE-SEARCH).
 
-Ask each prompt at least 3 times per AI model in one sitting. Even 7 runs a day leave about ±16 points of error (SCHULTE). Say how many you ran.
+**Ask blind.** Your own session knows the brand from this conversation, so its answers lean toward it. Run each prompt in a fresh session or a subagent that gets the prompt and nothing else: not the brand, not the site, not why it's asked. In an app, use a new chat with memory off. Never ask in the chat where the brand was discussed.
+
+Ask each prompt at least 3 times per AI model, each run its own fresh session, never three turns of one chat: an earlier answer shapes the next. Even 7 runs a day leave about ±16 points of error (SCHULTE). Say how many you ran.
 
 ## 3. Read each answer: four signals, apart
 
@@ -53,6 +55,14 @@ Sort every cited URL:
 - **YouTube, Reddit, LinkedIn, review sites:** off-site options. Google's AI answers cite YouTube and Reddit heavily (AHREFS-AIO50). ChatGPT barely does: YouTube in about 2% of software answers (FOUNDATION-YT), Reddit in 1 answer in 43 by late September (AHREFS-FANOUT). A YouTube comparison that names the rivals and a founder's LinkedIn article are placements the brand can make itself (FOUNDATION-YT, SEMRUSH-LINKEDIN).
 
 AI models barely share sources: in one October 2026 study, ChatGPT shared about 5% of its cited pages with Google's AI (TJR). Read each AI model on its own.
+
+### When AI can't find the brand at all
+
+No page of the brand's own is cited, and the branded prompts ("what is {brand}") don't find its domain either. Then the answers can't be fixed page by page yet. Check in this order:
+
+1. **Is the site in the index the AI model searches?** Bing's index grounds Copilot: check Bing Webmaster Tools, or search Bing for the domain (BING-AIPERF). For Google's AI Overviews and AI Mode, check Search Console's page indexing report, or search Google for the domain. ChatGPT's search shows only sites that let OAI-SearchBot in (OPENAI-BOTS). A site missing from the index goes to seo-geo-audit first: nothing else helps until it's in.
+2. **Is another brand answering to the name?** Read what the answers say "{brand}" is. If they describe another product with the same name, every prompt reads as that one until the site and its profiles say plainly what the brand is: the same name with its category ("{brand}, the {category} for {buyer}") on the home page, the About page and every profile (seo-geo-audit, Gate 5). On the author's own SEO tool, in a first blind check with one AI model and web search (9 runs, 2026-11-09), no answer found its domain, and 3 of 9 described a drum app with the same name.
+3. **Then the usual work:** the pitch list (step 5) for third-party pages already cited for the buyer's questions, and pages of its own for the prompts where rivals are named (seo-page-writer).
 
 ## 5. The pitch list
 
@@ -75,12 +85,14 @@ Doesn't: llms.txt, schema as a lever, chunking pages, "noai" tags (`references/g
 
 ## Output
 
+Open with the AI models that ran: each one's name, how it was asked (API, app, or your own model with web search), the date and the runs per prompt. With only your own model, say so in the first line ("1 AI model: Claude with web search, asked by this agent"), so nobody reads it as ChatGPT's answer.
+
 ```markdown
 | # | Prompt | AI model | Runs | Named | Recommended | Cited | Rivals named |
 | - | - | - | - | - | - | - | - |
 ```
 
-Then: the weakest AI model, the biggest gap (a prompt where rivals are named and the brand isn't), the top 5 pitch targets, the top 3 own pages to improve, and the runs and dates. Say plainly that one sitting is a snapshot.
+Then: if AI can't find the brand, that first, with what the index and name checks found; the weakest AI model, the biggest gap (a prompt where rivals are named and the brand isn't), the top 5 pitch targets, the top 3 own pages to improve, and the runs and dates. Say plainly that one sitting is a snapshot.
 
 ## With Sightkick
 

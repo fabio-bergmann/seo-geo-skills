@@ -4,7 +4,7 @@ description: Improves a page that is already live, one change at a time and only
 license: MIT
 metadata:
   author: Fabio Bergmann
-  version: 1.0.0
+  version: 1.0.4
 ---
 
 # SEO Page Refresh

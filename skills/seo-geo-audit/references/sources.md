@@ -24,6 +24,7 @@ Checked 2026-11-03.
 | G-NOTINDEXED | [Google on Discovered vs Crawled, not indexed](https://www.seroundtable.com/google-crawled-not-indexed-quality-ai-content-41701.html) | Search Engine Roundtable on John Mueller and Martin Splitt, 2026-07-16 | docs |
 | G-INDEXINGAPI | [Indexing API quickstart](https://developers.google.com/search/apis/indexing-api/v3/quickstart) | Google, 2026-10-16 | docs |
 | G-CWV | [Understanding Core Web Vitals](https://developers.google.com/search/docs/appearance/core-web-vitals) | Google, 2025-12-10 | docs |
+| PSI | [About PageSpeed Insights](https://developers.google.com/speed/docs/insights/v5/about) | Google | docs |
 | G-ROBOTSMETA | [Robots meta tag specifications](https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag) | Google, 2026-03-24 | docs |
 | G-SGAI | [Search generative AI control](https://support.google.com/webmasters/answer/16908024?hl=en) | Search Console Help | docs |
 | G-AITRAIN | [Supporting a shared AI training control](https://developers.google.com/search/blog/2026/10/ai-training-control) | Google (John Mueller), 2026-10-30 | docs |

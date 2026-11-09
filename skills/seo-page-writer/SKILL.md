@@ -4,7 +4,7 @@ description: Decides whether a page is worth writing, then writes it to rank on 
 license: MIT
 metadata:
   author: Fabio Bergmann
-  version: 1.0.0
+  version: 1.0.4
 ---
 
 # SEO Page Writer

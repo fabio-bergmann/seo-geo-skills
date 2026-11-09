@@ -4,7 +4,7 @@ description: Audits why a website isn't found on Google or in AI answers, with a
 license: MIT
 metadata:
   author: Fabio Bergmann
-  version: 1.0.0
+  version: 1.0.4
 ---
 
 # SEO and GEO Audit
@@ -21,7 +21,7 @@ Run the crawler in this skill's `scripts/` folder (Node 18 or later, nothing to 
 node {this skill's folder}/scripts/crawl.mjs https://example.com --max 300 --out seo/crawl.csv
 ```
 
-It reads robots.txt the way each search and AI bot would, crawls the sitemap and the internal links, and prints a summary in markdown with one CSV row per page. It goes one request at a time, waits between them and says who it is. Crawl only sites the owner runs.
+It reads robots.txt the way each search and AI bot would, crawls the sitemap and the internal links, and prints a summary in markdown with one CSV row per page. For each URL that isn't a 200 it lists the pages that link to it, where the fix goes. It goes one request at a time, waits between them, says who it is and never leaves the site, not even for a redirect. Crawl only sites the owner runs.
 
 No Node? Fetch robots.txt, the sitemap and the 10–20 pages that matter most yourself, and check the same things.
 
@@ -31,7 +31,7 @@ No Node? Fetch robots.txt, the sitemap and the 10–20 pages that matter most yo
 
 - **robots.txt lets the search bots and the user fetchers in:** Googlebot, Bingbot, OAI-SearchBot, ChatGPT-User, Claude-SearchBot, Claude-User, PerplexityBot and Perplexity-User. OpenAI: "Sites that are opted out of OAI-SearchBot will not be shown in ChatGPT search answers" (OPENAI-BOTS). The crawl prints a row per bot.
 - **Training bots are the owner's choice:** GPTBot, ClaudeBot, Google-Extended and CCBot. Blocking GPTBot or ClaudeBot has no measured citation cost: 88.2% of sites blocking GPTBot were still cited in one study (BUZZSTREAM-BLOCKING). But Google-Extended also decides whether the Gemini app can ground answers in the site (G-AITRAIN).
-- **The shared training opt-out:** if robots.txt has a `User-agent: __usage_ai-training` group and no `Google-Extended` group, flag it. From 2027 Google will read that opt-out as a Google-Extended block, which drops the site from Gemini-app answers. AI Overviews and AI Mode are not affected. To stay in Gemini's answers, add `User-agent: Google-Extended` with `Allow: /`. That also allows Gemini training, since one token covers both. Which matters more is the owner's call (G-AITRAIN).
+- **The shared training opt-out:** if robots.txt has a `User-agent: __usage_ai-training` group and no `Google-Extended` group, flag it. The crawl does. From 2027 Google will read that opt-out as a Google-Extended block, which drops the site from Gemini-app answers. AI Overviews and AI Mode are not affected. To stay in Gemini's answers, add `User-agent: Google-Extended` with `Allow: /`. That also allows Gemini training, since one token covers both. Which matters more is the owner's call (G-AITRAIN).
 - **No firewall answers those bots with a 403 or a challenge.** robots.txt can say yes while a CDN's bot protection says no. A firewall that verifies bots by their IP addresses may answer a faked user agent differently from the real bot, so a fetch with a bot's name isn't proof. Ask the owner to check the host's bot settings, and read the server logs or Bing Webmaster Tools' crawl data if you can reach them. The bots' IP lists are in their makers' docs (OPENAI-BOTS). Google-Agent ignores robots.txt, so check the firewall instead. Leave it unblocked if agents should be able to buy or book on the site (G-AGENT).
 - **Nothing blocks quoting:** no `noindex` where it shouldn't be, and no `nosnippet`, `max-snippet:0` or `data-nosnippet` on content that should be cited (G-ROBOTSMETA). Google's AI features use pages that are indexed and eligible for a snippet (G-AIFEAT). Search Console's "Search generative AI" setting stays on Include (G-SGAI).
 - **What matters is in the raw HTML:** the content, prices, plans, tables, dates, canonical and links. ChatGPT-User and Claude's and Perplexity's bots don't run JavaScript (VERCEL-CRAWL, EDGECOMET-JS), and Google renders it later (G-JS). OAI-SearchBot may have started rendering some pages in late 2026, unconfirmed. The crawl lists pages with under 150 words in the raw HTML.
@@ -48,11 +48,11 @@ No Node? Fetch robots.txt, the sitemap and the 10–20 pages that matter most yo
 - One title per page, in the searcher's words and not repeated elsewhere. One H1. A meta description.
 - The canonical points to the page itself unless it is a true duplicate.
 - Two pages ranking for one search isn't a problem by itself: on Ahrefs' own site, 1 of 80 sampled cases needed a fix (AHREFS-MULTIRANK, 2024). Act when they split the clicks and neither wins.
-- Core Web Vitals are a floor (LCP up to 2.5 s, INP under 200 ms, CLS under 0.1), not a lever beyond it (G-CWV).
+- Core Web Vitals are a floor (LCP up to 2.5 s, INP under 200 ms, CLS under 0.1), not a lever beyond it (G-CWV). Measure them in PageSpeed Insights (pagespeed.web.dev) or Search Console's Core Web Vitals report. The verdict is the field data: real Chrome users over the last 28 days, at the 75th percentile (PSI). A small site often has none, for the page or the whole origin: then write `BLOCKED: no field data` and give the lab numbers as a hint, not a verdict. A lab run can't measure INP (PSI).
 
 ### Gate 4: internal links
 
-- **Every page that matters has at least 3 internal links in,** with anchor text that says where they go. Google asks for at least one link from another page (G-LINKS); 3 is our floor. Orphans first: pages in the sitemap with no link in. Take the counts from the crawl, never from memory.
+- **Every page that matters has at least 3 internal links in,** with anchor text that says where they go. Google asks for at least one link from another page (G-LINKS); 3 is our floor. Pages that matter are the ones meant to rank for a buyer's question. Hubs, legal pages and About can live on menu links. Orphans first: pages in the sitemap with no link in. Count the links in the page content: a menu or footer link is on every page, so it meets the floor without recommending anything. The crawl counts both: the links in from page content, and all links in. Take the counts from the crawl, never from memory.
 - **Money pages** (pricing, comparisons, the product) are linked from the pages that get the traffic.
 
 ### Gate 5: entity basics

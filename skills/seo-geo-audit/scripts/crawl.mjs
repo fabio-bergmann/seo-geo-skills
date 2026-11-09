@@ -7,8 +7,11 @@
 // sitemap and the links it finds on the same host. For every page it records
 // the status, title, meta description, H1, canonical, robots directives, the
 // words in the raw HTML (what a bot that runs no JavaScript sees) and the
-// internal links in and out. It prints a summary in markdown and writes one
-// CSV row per page. It identifies itself honestly and waits between requests.
+// internal links in and out, counting apart the links in a page's content
+// (<main> or <article>, never its menus, header or footer). For a URL that
+// isn't a clean 200 it lists the pages that link to it. It prints a summary
+// in markdown and writes one CSV row per page. It identifies itself honestly
+// and waits between requests.
 
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
@@ -51,18 +54,46 @@ function args(argv) {
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-async function get(url) {
+// The site being crawled: its host with or without "www.". The crawler never
+// fetches anything else, so a redirect or a sitemap entry can't send it to
+// another site.
+const bare = (h) => h.replace(/^www\./i, "").toLowerCase();
+let SITE = "";
+const onSite = (u) => {
   try {
-    const res = await fetch(url, {
-      headers: { "user-agent": UA, accept: "text/html,application/xml;q=0.9,*/*;q=0.5" },
-      redirect: "follow",
-      signal: AbortSignal.timeout(20000),
-    });
-    const type = res.headers.get("content-type") || "";
-    const body = /html|xml|text/.test(type) ? await res.text() : "";
-    return { status: res.status, finalUrl: res.url, type, body, headers: res.headers };
+    const x = new URL(u);
+    return /^https?:$/.test(x.protocol) && bare(x.host) === SITE;
+  } catch {
+    return false;
+  }
+};
+
+// Follows up to 5 redirects, only on the site. A redirect to another site is
+// reported as it is (its 3xx status, final_url the target), not fetched.
+async function get(url) {
+  let at = url;
+  try {
+    for (let hop = 0; ; hop++) {
+      const res = await fetch(at, {
+        headers: { "user-agent": UA, accept: "text/html,application/xml;q=0.9,*/*;q=0.5" },
+        redirect: "manual",
+        signal: AbortSignal.timeout(20000),
+      });
+      const location = res.headers.get("location");
+      if (res.status >= 300 && res.status < 400 && location) {
+        const next = new URL(location, at).href;
+        if (onSite(next) && hop < 5) {
+          at = next;
+          continue;
+        }
+        return { status: res.status, finalUrl: next, type: "", body: "", headers: res.headers };
+      }
+      const type = res.headers.get("content-type") || "";
+      const body = /html|xml|text/.test(type) ? await res.text() : "";
+      return { status: res.status, finalUrl: at, type, body, headers: res.headers };
+    }
   } catch (e) {
-    return { status: 0, finalUrl: url, type: "", body: "", headers: new Headers(), error: String(e.message || e) };
+    return { status: 0, finalUrl: at, type: "", body: "", headers: new Headers(), error: String(e.message || e) };
   }
 }
 
@@ -110,9 +141,22 @@ function ruleMatches(pattern, path) {
   return re.test(path);
 }
 
+// The shared AI-training opt-out (IETF aipref draft). Not a bot: no crawler
+// fetches as it. Google, 2026-10-30: from 2027, a robots.txt that opts out
+// with this token and doesn't name Google-Extended is read as blocking
+// Google-Extended, which also takes the site out of the Gemini app's answers.
+const TRAINING_TOKEN = "__usage_ai-training";
+
+const groupsNaming = (robots, agent) => robots.groups.filter((g) => g.agents.includes(agent));
+
 function allowed(robots, bot, path) {
   const name = bot.toLowerCase();
-  let group = robots.groups.filter((g) => g.agents.some((a) => a !== "*" && name.includes(a)));
+  let group = robots.groups.filter((g) => g.agents.some((a) => a !== "*" && a !== TRAINING_TOKEN && name.includes(a)));
+  let via = "";
+  if (group.length === 0 && name === "google-extended" && groupsNaming(robots, TRAINING_TOKEN).length) {
+    group = groupsNaming(robots, TRAINING_TOKEN);
+    via = TRAINING_TOKEN;
+  }
   if (group.length === 0) group = robots.groups.filter((g) => g.agents.includes("*"));
   const rules = group.flatMap((g) => g.rules);
   let best = null;
@@ -121,7 +165,7 @@ function allowed(robots, bot, path) {
     const len = r.path.replace(/\$$/, "").length;
     if (!best || len > best.len || (len === best.len && r.allow)) best = { len, allow: r.allow };
   }
-  return { allowed: best ? best.allow : true, named: group.some((g) => !g.agents.includes("*")) };
+  return { allowed: best ? best.allow : true, named: !via && group.some((g) => !g.agents.includes("*")), via };
 }
 
 const decode = (s) =>
@@ -143,6 +187,36 @@ function attrs(tag) {
     out[m[1].toLowerCase()] = m[3] ?? m[4] ?? m[5] ?? "";
   }
   return out;
+}
+
+// The page's own content, where a link is a real recommendation: every
+// <main>, else every <article>, else the body, without menus, footers and
+// sidebars (and the body without its header too). A menu link is on every
+// page and says nothing about the page it points to.
+function contentOf(html) {
+  for (const tag of ["main", "article"]) {
+    const parts = [...html.matchAll(new RegExp(`<${tag}\\b[\\s\\S]*?</${tag}>`, "gi"))].map((m) => m[0]);
+    if (parts.length) return { area: tag, html: parts.join("\n").replace(/<(nav|footer|aside)\b[\s\S]*?<\/\1>/gi, " ") };
+  }
+  const body = html.match(/<body[\s\S]*<\/body>/i)?.[0] ?? html;
+  return { area: "body", html: body.replace(/<(nav|header|footer|aside)\b[\s\S]*?<\/\1>/gi, " ") };
+}
+
+function linksIn(html, pageUrl, host) {
+  const links = new Set();
+  for (const m of html.matchAll(/<a\b[^>]*>/gi)) {
+    const href = attrs(m[0]).href;
+    if (!href || /^(mailto|tel|javascript):/i.test(href)) continue;
+    try {
+      const u = new URL(href, pageUrl);
+      if (u.host !== host || !/^https?:$/.test(u.protocol)) continue;
+      u.hash = "";
+      links.add(u.href);
+    } catch {
+      // not a URL
+    }
+  }
+  return [...links];
 }
 
 function readPage(html, pageUrl, host) {
@@ -176,20 +250,14 @@ function readPage(html, pageUrl, host) {
     .replace(/<(script|style|svg|template|head)\b[\s\S]*?<\/\1>/gi, " ")
     .replace(/<!--[\s\S]*?-->/g, " ");
   const words = stripTags(visible).split(" ").filter((w) => /[\p{L}\p{N}]/u.test(w)).length;
-  const links = new Set();
-  for (const m of html.matchAll(/<a\b[^>]*>/gi)) {
-    const href = attrs(m[0]).href;
-    if (!href || /^(mailto|tel|javascript):/i.test(href)) continue;
-    try {
-      const u = new URL(href, pageUrl);
-      if (u.host !== host || !/^https?:$/.test(u.protocol)) continue;
-      u.hash = "";
-      links.add(u.href);
-    } catch {
-      // not a URL
-    }
-  }
-  return { title, description, robots, canonical, h1s, words, links: [...links], schemaTypes: [...schemaTypes] };
+  const content = contentOf(html);
+  return {
+    title, description, robots, canonical, h1s, words,
+    links: linksIn(html, pageUrl, host),
+    contentLinks: linksIn(content.html, pageUrl, host),
+    contentArea: content.area,
+    schemaTypes: [...schemaTypes],
+  };
 }
 
 async function sitemapUrls(start, list, max) {
@@ -198,7 +266,7 @@ async function sitemapUrls(start, list, max) {
   const queue = list.length ? [...list] : [new URL("/sitemap.xml", start).href];
   while (queue.length && urls.length < max * 5 && seen.size < 50) {
     const sm = queue.shift();
-    if (seen.has(sm)) continue;
+    if (seen.has(sm) || !onSite(sm)) continue;
     seen.add(sm);
     const res = await get(sm);
     if (res.status !== 200) continue;
@@ -219,8 +287,11 @@ const norm = (u) => {
   }
 };
 
+// A cell a spreadsheet would run as a formula (a page's title can start with
+// "=") gets a leading apostrophe, so it opens as text.
 const csvCell = (v) => {
-  const s = String(v ?? "");
+  let s = String(v ?? "");
+  if (/^[=+\-@\t\r]/.test(s)) s = `'${s}`;
   return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
 };
 
@@ -231,17 +302,23 @@ async function main() {
     process.exit(1);
   }
   const start = new URL(opt.start);
-  const host = start.host;
+  SITE = bare(start.host);
+  // The host the site answers on (example.com may redirect to www.), whose
+  // links are the internal ones.
+  const landed = await get(start.href);
+  const host = onSite(landed.finalUrl) ? new URL(landed.finalUrl).host : start.host;
 
   const robotsRes = await get(new URL("/robots.txt", start).href);
   const robots = parseRobots(robotsRes.status === 200 ? robotsRes.body : "");
   const sm = await sitemapUrls(start, robots.sitemaps, opt.max);
   const inSitemap = new Set(sm.urls.map(norm));
 
-  const queue = [norm(start.href), ...sm.urls.map(norm).filter((u) => new URL(u).host === host)];
+  const queue = [norm(start.href), ...sm.urls.map(norm).filter((u) => onSite(u) && new URL(u).host === host)];
   const queued = new Set(queue);
   const pages = new Map();
   const inlinks = new Map();
+  const contentInlinks = new Map();
+  const linkedFrom = new Map();
 
   while (queue.length && pages.size < opt.max) {
     const url = queue.shift();
@@ -260,9 +337,14 @@ async function main() {
     };
     if (res.status === 200 && /html/.test(res.type)) {
       Object.assign(row, readPage(res.body, res.finalUrl, host));
+      for (const l of row.contentLinks) {
+        if (l !== url) contentInlinks.set(l, (contentInlinks.get(l) || 0) + 1);
+      }
       for (const l of row.links) {
         if (l === url) continue;
         inlinks.set(l, (inlinks.get(l) || 0) + 1);
+        if (!linkedFrom.has(l)) linkedFrom.set(l, []);
+        linkedFrom.get(l).push(url);
         const clean = new URL(l);
         if (!queued.has(l) && !clean.search && !/\.(pdf|jpe?g|png|gif|webp|svg|zip|mp4|xml)$/i.test(clean.pathname)) {
           queued.add(l);
@@ -275,11 +357,16 @@ async function main() {
   }
 
   const rows = [...pages.values()];
-  for (const r of rows) r.inlinks = inlinks.get(r.url) || 0;
+  for (const r of rows) {
+    r.inlinks = inlinks.get(r.url) || 0;
+    r.contentInlinks = contentInlinks.get(r.url) || 0;
+    r.linkedFrom = linkedFrom.get(r.url) || [];
+  }
 
   const header = [
     "url", "status", "final_url", "in_sitemap", "title", "title_length", "description_length",
-    "h1_count", "h1", "canonical", "robots", "x_robots_tag", "words_raw_html", "links_out", "links_in", "schema_types",
+    "h1_count", "h1", "canonical", "robots", "x_robots_tag", "words_raw_html", "links_out", "links_in",
+    "links_in_content", "content_area", "schema_types", "linked_from",
   ];
   const lines = [header.join(",")];
   for (const r of rows) {
@@ -287,7 +374,10 @@ async function main() {
       [
         r.url, r.status, r.finalUrl, r.inSitemap, r.title, r.title?.length ?? "", r.description?.length ?? "",
         r.h1s?.length ?? "", r.h1s?.[0] ?? "", r.canonical, r.robots, r.xRobots, r.words ?? "",
-        r.links?.length ?? "", r.inlinks, (r.schemaTypes || []).join(" "),
+        r.links?.length ?? "", r.inlinks, r.title !== undefined ? r.contentInlinks : "", r.contentArea ?? "",
+        (r.schemaTypes || []).join(" "),
+        // Only for a URL that isn't a clean 200: the pages whose link to fix.
+        r.status !== 200 ? r.linkedFrom.join(" ") : "",
       ]
         .map(csvCell)
         .join(","),
@@ -315,12 +405,23 @@ async function main() {
   console.log("| Bot | Kind | For | Home page | Own rules |\n| - | - | - | - | - |");
   for (const [bot, kind, what] of BOTS) {
     const a = allowed(robots, bot, start.pathname || "/");
-    console.log(`| ${bot} | ${kind} | ${what} | ${a.allowed ? "allowed" : "BLOCKED"} | ${a.named ? "yes" : "no, uses *"} |`);
+    const own = a.via ? `no, uses ${a.via}` : a.named ? "yes" : "no, uses *";
+    console.log(`| ${bot} | ${kind} | ${what} | ${a.allowed ? "allowed" : "BLOCKED"} | ${own} |`);
+  }
+  if (groupsNaming(robots, TRAINING_TOKEN).length && !groupsNaming(robots, "google-extended").length) {
+    console.log(
+      `\n**Shared training opt-out, no Google-Extended group.** robots.txt has \`User-agent: ${TRAINING_TOKEN}\` and no \`User-agent: Google-Extended\`. From 2027 Google reads that opt-out as a Google-Extended block, which takes the site out of the Gemini app's answers (AI Overviews and AI Mode aren't affected). To stay in them, add \`User-agent: Google-Extended\` with \`Allow: /\`. That also allows Gemini training: the owner's call.`,
+    );
   }
   console.log("\nrobots.txt is only half: a firewall or bot-protection setting can still answer these bots with a 403 or a challenge. Check the host's bot settings too.");
 
   console.log("\n## Findings");
-  list("Not a 200", rows.filter((r) => r.status !== 200), (r) => `${r.url} – ${r.status}`);
+  const from = (r) => {
+    if (!r.linkedFrom.length) return r.inSitemap ? "from the sitemap, no link in" : "no link in";
+    const more = r.linkedFrom.length > 5 ? ` and ${r.linkedFrom.length - 5} more (linked_from in ${opt.out})` : "";
+    return `linked from ${r.linkedFrom.slice(0, 5).join(", ")}${more}`;
+  };
+  list("Not a 200", rows.filter((r) => r.status !== 200), (r) => `${r.url} – ${r.status}, ${from(r)}`);
   list("Redirected", html.filter((r) => norm(r.finalUrl) !== r.url), (r) => `${r.url} → ${r.finalUrl}`);
   list("noindex", html.filter((r) => /noindex/i.test(`${r.robots} ${r.xRobots}`)), (r) => `${r.url} – ${r.robots || r.xRobots}`);
   list("nosnippet or max-snippet:0 (can't be quoted in AI answers)", html.filter((r) => /nosnippet|max-snippet\s*:\s*0/i.test(`${r.robots} ${r.xRobots}`)));
@@ -336,9 +437,9 @@ async function main() {
   );
   list("In the sitemap, no internal link in (orphans)", html.filter((r) => r.inSitemap && r.inlinks === 0 && r.url !== home));
   list(
-    "Fewer than 3 internal links in",
-    html.filter((r) => r.inlinks > 0 && r.inlinks < 3 && r.url !== home),
-    (r) => `${r.url} – ${r.inlinks}`,
+    "Fewer than 3 internal links in from page content (menus, header and footer left out; hubs, legal pages and About can live on menu links)",
+    html.filter((r) => r.inlinks > 0 && r.contentInlinks < 3 && r.url !== home),
+    (r) => `${r.url} – ${r.contentInlinks} from content, ${r.inlinks} in all`,
   );
   list("Linked but not in the sitemap", html.filter((r) => !r.inSitemap && r.url !== home));
   list(
