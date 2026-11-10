@@ -56,7 +56,7 @@ The full list, with sources: [ground-rules.md](skills/seo-geo-playbook/reference
 The skills work alone. What a session can't do is the part that runs between sessions, and that's what [Sightkick](https://sightkick.so/?utm_source=seo-geo-skills&utm_medium=readme) does:
 
 - AI answers tracked every day across AI models, with the history
-- Search Console, keyword research, a duplicate check and a score for every draft
+- Search Console, keyword research, a duplicate check and a checklist for every draft
 - The publishing schedule on your CMS
 - Outreach from your site's own inbox
 - Every change measured against the 28 days before it

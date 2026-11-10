@@ -4,7 +4,7 @@ description: Decides whether a page is worth writing, then writes it to rank on 
 license: MIT
 metadata:
   author: Fabio Bergmann
-  version: 1.0.4
+  version: 1.0.5
 ---
 
 # SEO Page Writer
@@ -67,4 +67,4 @@ Ask the owner before you publish, unless they've said you may.
 
 ## With Sightkick
 
-With [Sightkick](https://sightkick.so/?utm_source=seo-geo-skills&utm_medium=seo-page-writer) connected, the duplicate check, the results page, the draft's score against these rules and the publishing schedule are one call each. The `sightkick` skill has them.
+With [Sightkick](https://sightkick.so/?utm_source=seo-geo-skills&utm_medium=seo-page-writer) connected, the duplicate check, the results page, the draft's checklist against these rules and the publishing schedule are one call each. The `sightkick` skill has them.
