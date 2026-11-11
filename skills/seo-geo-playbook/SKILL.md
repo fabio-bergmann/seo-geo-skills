@@ -4,7 +4,7 @@ description: Runs SEO and GEO (AI search visibility) for one website on a daily,
 license: MIT
 metadata:
   author: Fabio Bergmann
-  version: 1.0.5
+  version: 1.0.6
 ---
 
 # SEO and GEO Playbook
