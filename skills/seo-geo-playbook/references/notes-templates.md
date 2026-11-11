@@ -71,6 +71,18 @@ Fixed since {date}. Retire a prompt only with a reason in ledger.md.
 | {date} | {item} | Go / Hold / Kill | {the buyer's question; where the brand stands, with numbers and window; what Google and AI show; the edge, or what's missing} | {date or never} |
 ```
 
+## seo/plan.md
+
+```markdown
+# The next 30 days, from {date}
+
+Pace: {n} new pages ({why: indexed share, warm-up}). Calendar: {Sightkick, the CMS, or this file}.
+
+| Day | Page | The one question | Main keyword (volume, source, date) | Verdict | Brief | Status |
+| - | - | - | - | - | - | - |
+| {date} | {title, URL} | {question} | {keyword} | Go | seo/briefs/{slug}.md | brief / draft / owner said yes / on its day / live |
+```
+
 ## seo/log.md
 
 ```markdown

@@ -4,7 +4,7 @@ description: Checks how AI answers treat a brand by asking a fixed set of buyer 
 license: MIT
 metadata:
   author: Fabio Bergmann
-  version: 1.0.6
+  version: 1.0.7
 ---
 
 # AI Visibility Check
@@ -33,6 +33,9 @@ Use the AI models you can reach, with web search on: links in an answer come onl
 Stamp every run with the AI model, API or app, the date and whether it searched. API answers aren't app answers: Google plus OpenAI's API recover only about a quarter of the pages ChatGPT's app cites (JIANG), and forcing search on prompts that don't search on their own moved measured visibility by about 20 points (GRAPHITE-SEARCH).
 
 **Ask blind.** Your own session knows the brand from this conversation, so its answers lean toward it. Run each prompt in a fresh session or a subagent that gets the prompt and nothing else: not the brand, not the site, not why it's asked. In an app, use a new chat with memory off. Never ask in the chat where the brand was discussed.
+
+- **In Claude Code, a subagent isn't blind.** It sees the project's skills, and a skill's description can name the brand. Run each prompt as its own headless session from an empty folder outside the project (`claude -p`). Claude Code also tells every session the signed-in account's email: when its domain points to the brand, count those runs apart. Both turned up in the author's run on sightkick.so on 2026-11-11.
+- **Spread the runs over sessions.** In that run, one Claude Code session stopped at 200 web searches, after about 33 runs.
 
 Ask each prompt at least 3 times per AI model, each run its own fresh session, never three turns of one chat: an earlier answer shapes the next. Even 7 runs a day leave about ±16 points of error (SCHULTE). Say how many you ran.
 

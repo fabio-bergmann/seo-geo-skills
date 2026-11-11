@@ -1,10 +1,10 @@
 ---
 name: seo-geo-playbook
-description: Runs SEO and GEO (AI search visibility) for one website on a daily, weekly and monthly rhythm, with health checks, a weekly review of Google and AI answers, a skeptic go/hold/kill on what to write or fix next, and a short weekly report on outcomes. Keeps its notes in a seo/ folder so every run picks up where the last one stopped. Use when the user asks to run, plan or manage SEO or GEO for their site, wants a weekly SEO report or an SEO routine, asks what to do next for organic traffic or AI mentions, or mentions an SEO autopilot, organic growth plan or getting found on Google and in ChatGPT. For a one-off audit use seo-geo-audit; to write one page use seo-page-writer.
+description: Runs SEO and GEO (AI search visibility) for one website on a daily, weekly and monthly rhythm, with health checks, a weekly review of Google and AI answers, a skeptic go/hold/kill on what to write or fix next, a 30-day plan of pages handed to a publishing calendar, and a short weekly report on outcomes. Keeps its notes in a seo/ folder so every run picks up where the last one stopped. Use when the user asks to run, plan or manage SEO or GEO for their site, wants a weekly SEO report or an SEO routine, asks what to do next for organic traffic or AI mentions, or mentions an SEO autopilot, organic growth plan or getting found on Google and in ChatGPT. For a one-off audit use seo-geo-audit; to write one page use seo-page-writer.
 license: MIT
 metadata:
   author: Fabio Bergmann
-  version: 1.0.6
+  version: 1.0.7
 ---
 
 # SEO and GEO Playbook
@@ -25,6 +25,7 @@ You have no memory between runs, so everything lives in `seo/` in the site's rep
 | `prompts.md` | The fixed set of buyer questions and every run's results (ai-visibility-check) |
 | `pages.md` | Every page: its URL, the one question it answers, when it went live, its last change and when the next is allowed |
 | `ledger.md` | Every topic, change and pitch with Go, Hold or Kill, the reason and when to look again |
+| `plan.md` | The next 30 days: each page with its day, question, keyword, verdict, brief and status |
 | `log.md` | One dated line per change shipped, with its URL |
 | `reports/` | The weekly reports |
 
@@ -64,6 +65,19 @@ You have no memory between runs, so everything lives in `seo/` in the site's rep
 - **Links and mentions:** new and lost links, pages that name the brand without a link.
 - **Refresh:** lists and comparisons whose prices or year went stale. Real changes only.
 - **Audit:** run seo-geo-audit again.
+- **The plan:** the next 30 days, below.
+
+## The next 30 days
+
+When the owner asks for a plan, and after each month's keyword research:
+
+1. **Count the slots:** the new pages the site can take in 30 days at the pace (below), minus pages already on a day. Fewer slots than ideas is normal.
+2. **Gather candidates:** the ledger's Holds, the month's keyword research, the AI answers that name rivals and not the brand, and rivals' new pages. The bottom of the funnel first.
+3. **Run each through seo-page-writer's gates.** Only a Go gets a day. Holds and Kills go to the ledger with their reason.
+4. **Brief each Go** (seo-page-writer, The brief) in `seo/briefs/`.
+5. **Give each Go a day,** money pages first, with one slot a week left free for what the weekly review turns up. Two pages with reasons beat thirty without.
+6. **Hand the days to a publishing calendar:** the CMS's scheduled posts, a platform's schedule such as Sightkick's, or `seo/plan.md` for the owner to act on. Most calendars publish a page on its day exactly as written, with no review. So a page gets its day only after the owner's yes, or stays unwritten or unscheduled until then.
+7. **Write `seo/plan.md`** and move it on in every weekly review.
 
 ## Go, hold, kill
 

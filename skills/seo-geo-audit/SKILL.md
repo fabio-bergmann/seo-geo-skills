@@ -4,7 +4,7 @@ description: Audits why a website isn't found on Google or in AI answers, with a
 license: MIT
 metadata:
   author: Fabio Bergmann
-  version: 1.0.6
+  version: 1.0.7
 ---
 
 # SEO and GEO Audit
