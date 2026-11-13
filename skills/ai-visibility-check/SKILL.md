@@ -4,7 +4,7 @@ description: Checks how AI answers treat a brand by asking a fixed set of buyer 
 license: MIT
 metadata:
   author: Fabio Bergmann
-  version: 1.0.7
+  version: 1.0.8
 ---
 
 # AI Visibility Check
@@ -53,11 +53,13 @@ They disagree: in Semrush's data, 61.7% of brand appearances were a link with no
 Sort every cited URL:
 
 - **The brand's own page:** what does a rival page cited for the same prompt say that this one doesn't? That's a fix for seo-page-refresh. In matched groups, brands whose own pages were cited were named 40–49 points more often (TANNENBAUM).
-- **A third-party list, review or comparison that names rivals but not the brand:** the pitch list (step 5). Being on cited lists was the strongest of the factors one small vendor study tested for ChatGPT recommending a B2B software brand (r 0.64, 278 prompts, POSITION-LISTS).
+- **A third-party list, review or comparison that names rivals but not the brand:** the pitch list (step 5). Being on cited lists was the strongest of the factors one small vendor study tested for ChatGPT recommending a B2B software brand (r 0.64, 278 prompts, POSITION-LISTS, August 2026, before GPT-6).
 - **A rival's own page:** what it covers that the brand's site doesn't is a topic for seo-page-writer. ChatGPT's own searches lean on brand sites, with "official" and "price" among its rising search words (AHREFS-FANOUT).
-- **YouTube, Reddit, LinkedIn, review sites:** off-site options. Google's AI answers cite YouTube and Reddit heavily (AHREFS-AIO50). ChatGPT barely does: YouTube in about 2% of software answers (FOUNDATION-YT), Reddit in 1 answer in 43 by late September (AHREFS-FANOUT). A YouTube comparison that names the rivals and a founder's LinkedIn article are placements the brand can make itself (FOUNDATION-YT, SEMRUSH-LINKEDIN).
+- **YouTube, Reddit, LinkedIn, review sites:** off-site options. Google's AI answers cite YouTube and Reddit heavily (AHREFS-AIO50). ChatGPT barely does: YouTube in about 2% of software answers (FOUNDATION-YT), Reddit in 1 answer in 43 by late September, before GPT-6 (AHREFS-FANOUT). A YouTube comparison that names the rivals and a founder's LinkedIn article are placements the brand can make itself (FOUNDATION-YT, SEMRUSH-LINKEDIN).
 
 AI models barely share sources: in one October 2026 study, ChatGPT shared about 5% of its cited pages with Google's AI (TJR). Read each AI model on its own.
+
+**ChatGPT changed model on 2026-10-07.** GPT-6 rolled out from that day, and linked pages per answer rose from 3.3 to 4.1 (SISTRIX-GPT6). It's a break in every ChatGPT trend: most ChatGPT figures in this set were measured before it, so read them with their dates. Mark the date on your own trend lines too, and compare ChatGPT weeks on the same side of it.
 
 ### When AI can't find the brand at all
 
@@ -80,7 +82,7 @@ Pages the AI answers already cite for the buyer's questions that name two or thr
 
 ## 6. Check again
 
-After a change or a placement, ask the same prompts again, over weeks. Count weeks cited, not single citations: in Profound's sample, the median cited page lost half its citation share within 11 days of its peak (PROFOUND-HALFLIFE). Call a change only when it's bigger than the run-to-run spread (SIELINSKI).
+After a change or a placement, ask the same prompts again, over weeks. Count weeks cited, not single citations. Citations blink: in Ahrefs' 20-day study, 50–59% of day-one citations on AI Overviews, AI Mode and ChatGPT were gone the next day, and about 75% of those that disappeared came back within the 20 days (AHREFS-BLINK, 2026-10-29). In Profound's sample, the median cited page lost half its citation share within 11 days of its peak (PROFOUND-HALFLIFE). Call a change only when it's bigger than the run-to-run spread (SIELINSKI).
 
 ## What moves AI answers, and what doesn't
 

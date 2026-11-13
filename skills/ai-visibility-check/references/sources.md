@@ -1,6 +1,6 @@
 # Sources
 
-The sources behind the rules in these skills, by the key the skills cite them with. Read the source before you rely on a number: dates matter, and most AI-search data is a few months old at best. Kinds, strongest first: **docs** (the platform's own documentation), **study** (a paper or a controlled test), **vendor** (a tool maker's own data, read as direction), **practitioner** (one person's practice).
+The sources behind the rules in these skills, by the key the skills cite them with. Read the source before you rely on a number: dates matter, and most AI-search data is a few months old at best. Kinds, strongest first: **docs** (the platform's own documentation, or its regulator's), **press** (a news report of what a platform or its people said: read the original when there is one), **study** (a paper or a controlled test), **vendor** (a tool maker's own data, read as direction), **practitioner** (one person's practice).
 
 Checked 2026-11-03.
 
@@ -17,30 +17,33 @@ Checked 2026-11-03.
 | G-STATUS | [Search Status Dashboard](https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history) | Google | docs |
 | G-TITLELINKS | [Influencing your title links](https://developers.google.com/search/docs/appearance/title-link) | Google | docs |
 | G-SITEMAP | [Build and submit a sitemap](https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap) | Google, 2026-07-08 | docs |
-| ILLYES-LASTMOD | [Google: lastmod trust is binary](https://www.seroundtable.com/google-sitemap-lastmod-binary-trust-37554.html) | Search Engine Roundtable on Gary Illyes, 2024-06-11 | docs |
+| ILLYES-LASTMOD | [Google: lastmod trust is binary](https://www.seroundtable.com/google-sitemap-lastmod-binary-trust-37554.html) | Search Engine Roundtable on Gary Illyes, 2024-06-11 | press |
 | G-LINKS | [Link best practices for Google](https://developers.google.com/search/docs/crawling-indexing/links-crawlable) | Google | docs |
 | G-JS | [Understand JavaScript SEO basics](https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics) | Google, 2026-03-04 | docs |
 | G-CRAWLBUDGET | [Crawl budget management](https://developers.google.com/search/docs/crawling-indexing/large-site-managing-crawl-budget) | Google, 2026-07-22 | docs |
-| G-NOTINDEXED | [Google on Discovered vs Crawled, not indexed](https://www.seroundtable.com/google-crawled-not-indexed-quality-ai-content-41701.html) | Search Engine Roundtable on John Mueller and Martin Splitt, 2026-07-16 | docs |
+| G-NOTINDEXED | [Google on Discovered vs Crawled, not indexed](https://www.seroundtable.com/google-crawled-not-indexed-quality-ai-content-41701.html) | Search Engine Roundtable on John Mueller and Martin Splitt, 2026-07-16 | press |
 | G-INDEXINGAPI | [Indexing API quickstart](https://developers.google.com/search/apis/indexing-api/v3/quickstart) | Google, 2026-10-16 | docs |
 | G-CWV | [Understanding Core Web Vitals](https://developers.google.com/search/docs/appearance/core-web-vitals) | Google, 2025-12-10 | docs |
 | PSI | [About PageSpeed Insights](https://developers.google.com/speed/docs/insights/v5/about) | Google | docs |
 | G-ROBOTSMETA | [Robots meta tag specifications](https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag) | Google, 2026-03-24 | docs |
 | G-SGAI | [Search generative AI control](https://support.google.com/webmasters/answer/16908024?hl=en) | Search Console Help | docs |
 | G-AITRAIN | [Supporting a shared AI training control](https://developers.google.com/search/blog/2026/10/ai-training-control) | Google (John Mueller), 2026-10-30 | docs |
+| G-VERIFY | [Verifying Googlebot and other Google crawlers](https://developers.google.com/crawling/docs/crawlers-fetchers/verify-google-requests) | Google | docs |
 | G-AGENT | [Google-Agent](https://developers.google.com/crawling/docs/crawlers-fetchers/google-agent) and [user-triggered fetchers](https://developers.google.com/crawling/docs/crawlers-fetchers/google-user-triggered-fetchers) | Google, updated 2026-08-19 | docs |
 | G-AIFEAT | [AI features and your website](https://developers.google.com/search/docs/appearance/ai-features) | Google | docs |
 | G-AIOPT | [AI optimization guide](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide) | Google, 2026-07-10 | docs |
 | G-GALLERY | [Search gallery: structured data features](https://developers.google.com/search/docs/appearance/structured-data/search-gallery) | Google, 2026-10-16 | docs |
+| G-SDUPDATES | [Search Central documentation updates](https://developers.google.com/search/updates) | Google: HowTo docs removed 2023-09-14, FAQ rich results gone from 2026-05-07 | docs |
 | G-OFFICIAL | [More ways to connect with the web in AI Mode and AI Overviews](https://blog.google/products-and-platforms/products/search/updates-ai-mode-overviews-explore-web/) | Google (Hema Budaraju), 2026-10-15 | docs |
 | G-BRANDED | [Branded queries filter in Search Console](https://developers.google.com/search/blog/2025/11/search-console-branded-filter) | Google Search Central, 2025-11-20 | docs |
 | G-AIREPORT | [Generative AI performance report](https://support.google.com/webmasters/answer/16984139?hl=en) | Search Console Help | docs |
+| CMA-AICLICKS | [The publisher conduct requirement](https://assets.publishing.service.gov.uk/media/6a7195d7aec8358a34958bfa/Publisher_conduct_requirement_-_3_Aug_2026.pdf) | UK Competition and Markets Authority, 2026-08-03 | docs |
 | G-QUALIFY | [Qualify your outbound links](https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links) | Google, 2025-12-10 | docs |
 | G-DISAVOW | [Disavow links to your site](https://support.google.com/webmasters/answer/2648487?hl=en) | Search Console Help | docs |
 | G-KP | [About Keyword Planner forecasts and historical metrics](https://support.google.com/google-ads/answer/3022575) | Google Ads Help | docs |
 | GA-CHANNELS | [Default channel group](https://support.google.com/analytics/answer/9756891?hl=en) | Google Analytics Help | docs |
-| ILLYES-LINKS | [Google confirms links are not that important](https://www.searchenginejournal.com/google-needs-very-few-links/514494/) | Search Engine Journal on Gary Illyes, 2024-04-22 | docs |
-| MUELLER-DA | [Is domain authority a ranking factor?](https://www.searchenginejournal.com/ranking-factors/domain-authority/) | Search Engine Journal on John Mueller | docs |
+| ILLYES-LINKS | [Google confirms links are not that important](https://www.searchenginejournal.com/google-needs-very-few-links/514494/) | Search Engine Journal on Gary Illyes, 2024-04-22 | press |
+| MUELLER-DA | [Is domain authority a ranking factor?](https://www.searchenginejournal.com/ranking-factors/domain-authority/) | Search Engine Journal on John Mueller | press |
 
 ## AI platforms
 
@@ -48,9 +51,13 @@ Checked 2026-11-03.
 | - | - | - | - |
 | OPENAI-BOTS | [Overview of OpenAI crawlers](https://developers.openai.com/api/docs/bots) | OpenAI | docs |
 | ANTHROPIC-WEBSEARCH | [Web search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool) | Anthropic | docs |
+| BING-GROUNDING | [Clearer preferences for training and grounding](https://blogs.bing.com/search/2026/10/your-content-your-choice-clearer-preferences-for-training-and-grounding/) | Microsoft Bing, 2026-10-30 | docs |
 | BING-AIPERF | [AI Performance in Bing Webmaster Tools](https://blogs.bing.com/webmaster/February-2026/Introducing-AI-Performance-in-Bing-Webmaster-Tools-Public-Preview) | Microsoft Bing, 2026-02-10 | docs |
 | CLARITY-CITATIONS | [Citations now generally available](https://clarity.microsoft.com/blog/citations-now-generally-available/) | Microsoft Clarity, 2026-05-13 | docs |
 | INDEXNOW | [IndexNow FAQ](https://www.indexnow.org/faq) | IndexNow | docs |
+| CF-AITRAIN | [Stay discoverable in search while disallowing AI training](https://blog.cloudflare.com/accountable-mixed-use-ai-crawlers/) | Cloudflare, 2026-09-15 | docs |
+| OPENAI-BIZHUB | [Businesses in ChatGPT Business Hub live with click data](https://www.seroundtable.com/chatgpt-business-hub-42505.html) | Search Engine Roundtable quoting OpenAI's Business Hub, 2026-11-10 | press |
+| GEMINI-UTM | [Gemini stops adding UTM parameters to cited links](https://www.seroundtable.com/gemini-utm-parameters-42399.html) | Search Engine Roundtable on Natzir's tracking, 2026-10-30 | press |
 
 ## Studies
 
@@ -78,8 +85,10 @@ Checked 2026-11-03.
 | SPARKTORO-LISTS | [AIs are highly inconsistent when recommending brands or products](https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/) | SparkToro and Gumshoe, 2026-01-28 | vendor |
 | SEMRUSH-GHOST | [Why 62% of AI citations don't lead to brand mentions](https://www.semrush.com/blog/the-ghost-citations-study/) | Semrush with Kevin Indig, 2026-06-09 | vendor |
 | OTTERLY-STABILITY | [How stable AI citations are](https://otterly.ai/blog/ai-search-visibility-stability/) | Otterly, updated 2026-09-11 | vendor |
+| AHREFS-BLINK | [How stable are AI citations?](https://ahrefs.com/blog/how-stable-are-ai-citations/) | Ahrefs, 2026-10-29 (about 37,500 citations, 20 days) | vendor |
 | PROFOUND-HALFLIFE | [The half-life of an AI citation is 11 days](https://www.tryprofound.com/blog/the-half-life-of-an-ai-citation-is-11-days) | Profound, 2026-09-30 | vendor |
 | GRAPHITE-SEARCH | [Do not force search in prompt tracking](https://graphite.io/five-percent/research/do-not-force-search-prompt-tracking) | Graphite, 2026-08 | vendor |
+| SISTRIX-GPT6 | [What changed in ChatGPT in October: GPT-6, UTM tracking and sources](https://www.sistrix.com/blog/chatgpt-october-gpt-6-utm-sources/) | SISTRIX, 2026-10-30 | vendor |
 | AHREFS-FANOUT | [How ChatGPT does query fan-out](https://ahrefs.com/blog/query-fan-out-chatgpt/) | Ahrefs, 2026-10-12 | vendor |
 | SEER-FANOUT | [Gemini 3 query fan-outs](https://www.seerinteractive.com/insights/gemini-3-query-fan-outs-research) | Seer Interactive, 2025-11-21 | vendor |
 | AHREFS-AIO50 | [The most cited domains in AI Overviews](https://ahrefs.com/blog/most-cited-domains-ai-overviews/) | Ahrefs, 2026-09-02 | vendor |
@@ -96,6 +105,7 @@ Checked 2026-11-03.
 | POSITION-LISTS | [ChatGPT ranking factors](https://www.position.digital/blog/chatgpt-ranking-factors/) | Position Digital, 2026-08-12 | vendor |
 | PEEC-LISTRANK | [The listicle rank effect](https://peec.ai/blog/the-listicle-rank-effect-what-nearly-200-000-ai-responses-across-8-ai-engines-reveal-about-brand-visibility) | Peec AI, 2026-09-25 | vendor |
 | VISIBLE-PLACEMENTS | [How much can you influence which brands ChatGPT recommends?](https://visible.beehiiv.com/p/how-much-can-you-influence-which-brands-chatgpt-recommends) | Visible, 2026-02-19 | vendor |
+| CLICKPORT-DIRECT | [Why ChatGPT traffic shows as Direct in GA4](https://clickport.io/blog/chatgpt-direct-traffic-ga4) | Clickport, updated 2026-10-22 | vendor |
 | SIMILARWEB-AI | [The downstream impact of AI visibility](https://www.similarweb.com/corp/reports/the-downstream-impact-of-ai-visibilty/) | Similarweb, 2026-06 | vendor |
 | SEMRUSH-NOFOLLOW | [Do backlinks still matter in AI search?](https://www.semrush.com/blog/backlinks-ai-search-study) | Semrush with Kevin Indig, 2025-10-16 | vendor |
 | SEMRUSH-OUTREACH | [AI citation outreach: a Semrush and Claude workflow](https://www.semrush.com/blog/ai-citation-outreach/) | Semrush, 2026-09-21 | vendor |

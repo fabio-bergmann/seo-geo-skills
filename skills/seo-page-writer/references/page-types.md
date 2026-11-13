@@ -45,7 +45,7 @@ URL `/alternatives/{rival}`. Title: "{N} {Rival} Alternatives for {the buyer's r
 5. **When to stay with {Rival}:** one honest paragraph.
 6. **FAQ and disclosure,** as on a comparison page.
 
-Each option needs a dated price and two sourced claims. Naming the real options is good for the page too: pages naming six or more brands drew about 1.76 times the ChatGPT citations of pages naming none, in one vendor study (POSITION-LISTS).
+Each option needs a dated price and two sourced claims. Naming the real options is good for the page too: pages naming six or more brands drew about 1.76 times the ChatGPT citations of pages naming none, in one vendor study from August 2026, before GPT-6 (POSITION-LISTS, SISTRIX-GPT6).
 
 ## Lists that rank the brand ("best X")
 
@@ -58,7 +58,7 @@ A brand's own "best X" list can still win Google traffic: 62% of vendor-written 
 - **Every option linked, priced and dated,** with the evidence above.
 - **Updated at least yearly, with real changes.** 79.1% of the lists ChatGPT cited had been updated that year (AHREFS-BESTLISTS).
 
-Better than writing one: getting onto the third-party lists AI answers already cite (ai-visibility-check, the pitch list). Being on them was the strongest of the factors one vendor study tested (POSITION-LISTS).
+Better than writing one: getting onto the third-party lists AI answers already cite (ai-visibility-check, the pitch list). Being on them was the strongest of the factors one vendor study tested for ChatGPT, before GPT-6 (POSITION-LISTS).
 
 ## Integration: "{Brand} + {Tool}"
 
@@ -84,3 +84,6 @@ Answers one buyer question, with the rules in the skill. The product pitched in 
 ## Structured data
 
 WebPage or Article with a `dateModified` that changes only with real changes, BreadcrumbList, and Organization for the publisher. ItemList on lists. It's hygiene, not a lever: price, date and verdict must be in the visible text (G-AIOPT, AHREFS-SCHEMA).
+
+- **No FAQPage or HowTo markup for rich results.** FAQ rich results stopped appearing in Google Search on 2026-05-07, and HowTo was dropped in 2023 (G-SDUPDATES). Neither is in Google's gallery (G-GALLERY). A visible FAQ is still worth its text.
+- **Product with Offer still earns its keep on a pricing page,** with the price, currency and availability matching what the page shows (G-GALLERY).

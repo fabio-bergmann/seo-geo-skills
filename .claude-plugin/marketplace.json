@@ -6,14 +6,14 @@
     "url": "https://fabio.xyz"
   },
   "metadata": {
-    "version": "1.0.7"
+    "version": "1.0.8"
   },
   "plugins": [
     {
       "name": "seo-geo-skills",
       "source": "./",
       "description": "Five skills to run SEO and GEO for a website: a daily, weekly and monthly playbook, an audit with a crawl script, an AI visibility check, a page writer and a page refresh. No account needed.",
-      "version": "1.0.7",
+      "version": "1.0.8",
       "author": { "name": "Fabio Bergmann", "url": "https://fabio.xyz" },
       "homepage": "https://github.com/fabio-bergmann/seo-geo-skills",
       "repository": "https://github.com/fabio-bergmann/seo-geo-skills",
@@ -32,7 +32,7 @@
       "name": "sightkick",
       "source": "./",
       "description": "Connects Sightkick, the agentic SEO and GEO platform, over MCP: AI answers tracked daily with history, Search Console, publishing and outreach. Needs a Sightkick account.",
-      "version": "1.0.7",
+      "version": "1.0.8",
       "author": { "name": "Fabio Bergmann", "url": "https://fabio.xyz" },
       "homepage": "https://sightkick.so",
       "repository": "https://github.com/fabio-bergmann/seo-geo-skills",

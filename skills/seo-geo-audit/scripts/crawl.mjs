@@ -6,12 +6,15 @@
 // It reads robots.txt as each search and AI bot would, then crawls the
 // sitemap and the links it finds on the same host. For every page it records
 // the status, title, meta description, H1, canonical, robots directives, the
-// words in the raw HTML (what a bot that runs no JavaScript sees) and the
-// internal links in and out, counting apart the links in a page's content
-// (<main> or <article>, never its menus, header or footer). For a URL that
-// isn't a clean 200 it lists the pages that link to it. It prints a summary
-// in markdown and writes one CSV row per page. It identifies itself honestly
-// and waits between requests.
+// words in the raw HTML (what a bot that runs no JavaScript sees), on the
+// whole page and in its content alone, the internal links in and out,
+// counting apart the links in a page's content (<main> or <article>, never
+// its menus, header or footer), and the page's dates: the sitemap's lastmod,
+// the JSON-LD dateModified and the date it shows. For a URL that isn't a
+// clean 200 it lists the pages that link to it. It prints a summary in
+// markdown and writes one CSV row per page. It waits between requests and
+// always sends its own name: never a search or AI bot's user agent, which
+// would land in the site's logs as that bot and prove nothing about it.
 
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
@@ -228,7 +231,7 @@ function readPage(html, pageUrl, host) {
     const a = attrs(m[0]);
     const name = (a.name || "").toLowerCase();
     if (name === "description") description = decode(a.content || "");
-    if (name === "robots" || name === "googlebot") robots = [robots, a.content || ""].filter(Boolean).join(", ");
+    if (name === "robots" || name === "googlebot" || name === "bingbot") robots = [robots, a.content || ""].filter(Boolean).join(", ");
   }
   let canonical = "";
   for (const m of head.matchAll(/<link\b[^>]*>/gi)) {
@@ -246,13 +249,20 @@ function readPage(html, pageUrl, host) {
   for (const m of html.matchAll(/<script[^>]+application\/ld\+json[^>]*>([\s\S]*?)<\/script>/gi)) {
     for (const t of m[1].matchAll(/"@type"\s*:\s*"([^"]+)"/g)) schemaTypes.add(t[1]);
   }
-  const visible = html
-    .replace(/<(script|style|svg|template|head)\b[\s\S]*?<\/\1>/gi, " ")
-    .replace(/<!--[\s\S]*?-->/g, " ");
-  const words = stripTags(visible).split(" ").filter((w) => /[\p{L}\p{N}]/u.test(w)).length;
+  let dateModified = "";
+  for (const m of html.matchAll(/<script[^>]+application\/ld\+json[^>]*>([\s\S]*?)<\/script>/gi)) {
+    for (const d of m[1].matchAll(/"dateModified"\s*:\s*"([^"]+)"/g)) {
+      const day = isoDay(d[1]);
+      if (day && day > dateModified) dateModified = day;
+    }
+  }
   const content = contentOf(html);
   return {
-    title, description, robots, canonical, h1s, words,
+    title, description, robots, canonical, h1s,
+    words: countWords(html),
+    contentWords: countWords(content.html),
+    dateModified,
+    visibleDate: visibleDate(content.html),
     links: linksIn(html, pageUrl, host),
     contentLinks: linksIn(content.html, pageUrl, host),
     contentArea: content.area,
@@ -260,9 +270,51 @@ function readPage(html, pageUrl, host) {
   };
 }
 
+const countWords = (html) =>
+  stripTags(html.replace(/<(script|style|svg|template|head)\b[\s\S]*?<\/\1>/gi, " ").replace(/<!--[\s\S]*?-->/g, " "))
+    .split(" ")
+    .filter((w) => /[\p{L}\p{N}]/u.test(w)).length;
+
+// A date as its day, YYYY-MM-DD, as written (no time zone shift): from
+// ISO 8601 ("2026-11-03", "2026-11-03T09:00:00+01:00") or from words
+// ("November 3, 2026", "3 Nov 2026"). Anything else is "".
+const MONTHS = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+const pad = (n) => String(n).padStart(2, "0");
+function isoDay(text) {
+  const t = String(text || "").trim();
+  let m = t.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (m) return `${m[1]}-${m[2]}-${m[3]}`;
+  m = t.match(/^([A-Za-z]{3})[a-z]*\.?\s+(\d{1,2})(?:st|nd|rd|th)?,?\s+(\d{4})$/);
+  if (m && MONTHS.includes(m[1].toLowerCase())) return `${m[3]}-${pad(MONTHS.indexOf(m[1].toLowerCase()) + 1)}-${pad(m[2])}`;
+  m = t.match(/^(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]{3})[a-z]*\.?,?\s+(\d{4})$/);
+  if (m && MONTHS.includes(m[2].toLowerCase())) return `${m[3]}-${pad(MONTHS.indexOf(m[2].toLowerCase()) + 1)}-${pad(m[1])}`;
+  return "";
+}
+
+// The date a reader sees on the page: the newest <time> in its content
+// (its datetime, else its text), else a date written after "Updated",
+// "Last updated", "Modified" or "Reviewed". Dates elsewhere in the text
+// (a study from 2024, an event) are left alone.
+const DATE_WORDS = String.raw`\d{4}-\d{2}-\d{2}|[A-Za-z]{3,9}\.?\s+\d{1,2}(?:st|nd|rd|th)?,?\s+\d{4}|\d{1,2}(?:st|nd|rd|th)?\s+[A-Za-z]{3,9}\.?,?\s+\d{4}`;
+function visibleDate(html) {
+  let best = "";
+  for (const m of html.matchAll(/<time\b([^>]*)>([\s\S]*?)<\/time>/gi)) {
+    const day = isoDay(attrs(m[1]).datetime || stripTags(m[2]));
+    if (day > best) best = day;
+  }
+  if (best) return best;
+  const text = stripTags(html.replace(/<(script|style)\b[\s\S]*?<\/\1>/gi, " "));
+  for (const m of text.matchAll(new RegExp(String.raw`\b(?:last updated|updated|modified|reviewed)(?: on)?:?\s+(${DATE_WORDS})`, "gi"))) {
+    const day = isoDay(m[1]);
+    if (day > best) best = day;
+  }
+  return best;
+}
+
 async function sitemapUrls(start, list, max) {
   const seen = new Set();
   const urls = [];
+  const lastmod = new Map();
   const queue = list.length ? [...list] : [new URL("/sitemap.xml", start).href];
   while (queue.length && urls.length < max * 5 && seen.size < 50) {
     const sm = queue.shift();
@@ -272,9 +324,16 @@ async function sitemapUrls(start, list, max) {
     if (res.status !== 200) continue;
     const locs = [...res.body.matchAll(/<loc>\s*([\s\S]*?)\s*<\/loc>/gi)].map((m) => decode(m[1]));
     if (/<sitemapindex/i.test(res.body)) queue.push(...locs);
-    else urls.push(...locs);
+    else {
+      urls.push(...locs);
+      for (const u of res.body.matchAll(/<url>([\s\S]*?)<\/url>/gi)) {
+        const loc = u[1].match(/<loc>\s*([\s\S]*?)\s*<\/loc>/i);
+        const mod = u[1].match(/<lastmod>\s*([\s\S]*?)\s*<\/lastmod>/i);
+        if (loc && mod) lastmod.set(norm(decode(loc[1])), isoDay(decode(mod[1])));
+      }
+    }
   }
-  return { urls, read: [...seen] };
+  return { urls, lastmod, read: [...seen] };
 }
 
 const norm = (u) => {
@@ -313,7 +372,9 @@ async function main() {
   const sm = await sitemapUrls(start, robots.sitemaps, opt.max);
   const inSitemap = new Set(sm.urls.map(norm));
 
-  const queue = [norm(start.href), ...sm.urls.map(norm).filter((u) => onSite(u) && new URL(u).host === host)];
+  // Each URL once: the home page is usually in the sitemap too, and a page
+  // fetched twice would count its links twice.
+  const queue = [...new Set([norm(start.href), ...sm.urls.map(norm).filter((u) => onSite(u) && new URL(u).host === host)])];
   const queued = new Set(queue);
   const pages = new Map();
   const inlinks = new Map();
@@ -334,6 +395,7 @@ async function main() {
       finalUrl: res.finalUrl,
       xRobots: res.headers.get("x-robots-tag") || "",
       inSitemap: inSitemap.has(url),
+      lastmod: sm.lastmod.get(url) || "",
     };
     if (res.status === 200 && /html/.test(res.type)) {
       Object.assign(row, readPage(res.body, res.finalUrl, host));
@@ -365,17 +427,18 @@ async function main() {
 
   const header = [
     "url", "status", "final_url", "in_sitemap", "title", "title_length", "description_length",
-    "h1_count", "h1", "canonical", "robots", "x_robots_tag", "words_raw_html", "links_out", "links_in",
-    "links_in_content", "content_area", "schema_types", "linked_from",
+    "h1_count", "h1", "canonical", "robots", "x_robots_tag", "words_raw_html", "words_in_content", "links_out", "links_in",
+    "links_in_content", "content_area", "schema_types", "sitemap_lastmod", "json_ld_date_modified", "visible_date",
+    "linked_from",
   ];
   const lines = [header.join(",")];
   for (const r of rows) {
     lines.push(
       [
         r.url, r.status, r.finalUrl, r.inSitemap, r.title, r.title?.length ?? "", r.description?.length ?? "",
-        r.h1s?.length ?? "", r.h1s?.[0] ?? "", r.canonical, r.robots, r.xRobots, r.words ?? "",
+        r.h1s?.length ?? "", r.h1s?.[0] ?? "", r.canonical, r.robots, r.xRobots, r.words ?? "", r.contentWords ?? "",
         r.links?.length ?? "", r.inlinks, r.title !== undefined ? r.contentInlinks : "", r.contentArea ?? "",
-        (r.schemaTypes || []).join(" "),
+        (r.schemaTypes || []).join(" "), r.lastmod ?? "", r.dateModified ?? "", r.visibleDate ?? "",
         // Only for a URL that isn't a clean 200: the pages whose link to fix.
         r.status !== 200 ? r.linkedFrom.join(" ") : "",
       ]
@@ -413,7 +476,9 @@ async function main() {
       `\n**Shared training opt-out, no Google-Extended group.** robots.txt has \`User-agent: ${TRAINING_TOKEN}\` and no \`User-agent: Google-Extended\`. From 2027 Google reads that opt-out as a Google-Extended block, which takes the site out of the Gemini app's answers (AI Overviews and AI Mode aren't affected). To stay in them, add \`User-agent: Google-Extended\` with \`Allow: /\`. That also allows Gemini training: the owner's call.`,
     );
   }
-  console.log("\nrobots.txt is only half: a firewall or bot-protection setting can still answer these bots with a 403 or a challenge. Check the host's bot settings too.");
+  console.log(
+    "\nrobots.txt is only half: a firewall or bot-protection setting can still answer these bots with a 403 or a challenge. Check the host's bot settings (on Cloudflare, Training \"Block\" also stops Googlebot, Bingbot and Applebot), and the server logs with each bot verified by reverse DNS or its published IP ranges. Never test by fetching as a bot: the fetch lands in the logs as that bot and proves nothing about it.",
+  );
 
   console.log("\n## Findings");
   const from = (r) => {
@@ -425,6 +490,11 @@ async function main() {
   list("Redirected", html.filter((r) => norm(r.finalUrl) !== r.url), (r) => `${r.url} → ${r.finalUrl}`);
   list("noindex", html.filter((r) => /noindex/i.test(`${r.robots} ${r.xRobots}`)), (r) => `${r.url} – ${r.robots || r.xRobots}`);
   list("nosnippet or max-snippet:0 (can't be quoted in AI answers)", html.filter((r) => /nosnippet|max-snippet\s*:\s*0/i.test(`${r.robots} ${r.xRobots}`)));
+  list(
+    "noarchive, nocache or ai-grounding:disallow (Bing keeps the page out of Copilot's answers or limits them: noarchive and nocache until 2027-03-01, ai-grounding from 2027-02-01)",
+    html.filter((r) => /noarchive|nocache|ai-grounding\s*:\s*disallow/i.test(`${r.robots} ${r.xRobots}`)),
+    (r) => `${r.url} – ${[r.robots, r.xRobots].filter(Boolean).join(", ")}`,
+  );
   list("Canonical points elsewhere", html.filter((r) => r.canonical && norm(r.canonical) !== norm(r.finalUrl)), (r) => `${r.url} → ${r.canonical}`);
   list("No title", html.filter((r) => !r.title));
   list("Same title on several pages", [...titles.values()].filter((g) => g.length > 1), (g) => `"${g[0].title}" – ${g.length} pages`);
@@ -434,6 +504,16 @@ async function main() {
     "Under 150 words in the raw HTML (bots that run no JavaScript see little)",
     html.filter((r) => r.words < 150),
     (r) => `${r.url} – ${r.words} words`,
+  );
+  list(
+    "Under 150 words in the page's <main> or <article>, though the whole page has more (a menu, header or footer fills the count)",
+    html.filter((r) => r.words >= 150 && r.contentArea !== "body" && r.contentWords < 150),
+    (r) => `${r.url} – ${r.contentWords} words in <${r.contentArea}>, ${r.words} on the page`,
+  );
+  list(
+    "Dates disagree (sitemap lastmod, JSON-LD dateModified, the date on the page)",
+    html.filter((r) => new Set([r.lastmod, r.dateModified, r.visibleDate].filter(Boolean)).size > 1),
+    (r) => `${r.url} – lastmod ${r.lastmod || "none"}, dateModified ${r.dateModified || "none"}, on the page ${r.visibleDate || "none"}`,
   );
   list("In the sitemap, no internal link in (orphans)", html.filter((r) => r.inSitemap && r.inlinks === 0 && r.url !== home));
   list(

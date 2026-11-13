@@ -4,7 +4,7 @@ description: Improves a page that is already live, one change at a time and only
 license: MIT
 metadata:
   author: Fabio Bergmann
-  version: 1.0.7
+  version: 1.0.8
 ---
 
 # SEO Page Refresh
@@ -17,7 +17,7 @@ Read `references/ground-rules.md` first. The keys in brackets are in `references
 
 Change a page only for one of these, in this order:
 
-1. **A lost AI citation.** The page was cited for a buyer question and isn't now, and the loss held over 2–3 weekly checks. One check is noise: in Profound's sample, the median cited page lost half its citation share within 11 days of its peak, with no change made (PROFOUND-HALFLIFE). Read the page that's cited now and what it says that yours doesn't. Add that.
+1. **A lost AI citation.** The page was cited for a buyer question and isn't now, and the loss held over 2–3 weekly checks. One check is noise. Citations blink: in Ahrefs' 20-day study, 50–59% of day-one citations on AI Overviews, AI Mode and ChatGPT were gone the next day, and about 75% of those that disappeared came back within the 20 days (AHREFS-BLINK, 2026-10-29). In Profound's sample, the median cited page lost half its citation share within 11 days of its peak, with no change made (PROFOUND-HALFLIFE). Read the page that's cited now and what it says that yours doesn't. Add that.
 2. **A wrong or stale fact:** a price, a plan, a figure, a year, a feature. Fix it from the source, with its date.
 3. **Positions 8–20 with impressions.** Read the page's queries in Search Console and add the section for the search no heading answers, or internal links in from related pages.
 4. **A low click rate on page 1.** Rewrite the title in the searcher's words. Not on searches where an AI Overview sits on top: AI Overviews cut organic clicks by 38% in a field study (AIO-CLICKS), so the title isn't the problem there.
@@ -52,7 +52,7 @@ Leave 60 days between two changes to one page, so each can be measured on its ow
 
 ## 4. Measure
 
-After 28 days, compare the target query's 28 days after with the 28 before. One line: up, flat or down, with the numbers, and no guess about why (CHATSEO-TEAM). In a page's first 90 days its clicks grow by themselves, so mark that reading "early". For AI answers, ask the same prompts on the same AI models, and count weeks cited before and after.
+After 28 days, compare the target query's 28 days after with the 28 before. One line: up, flat or down, with the numbers, and no guess about why (CHATSEO-TEAM). In a page's first 90 days its clicks grow by themselves, so mark that reading "early". For AI answers, ask the same prompts on the same AI models, and count weeks cited before and after, never single days (AHREFS-BLINK). For ChatGPT, keep both windows on one side of GPT-6 (2026-10-07, SISTRIX-GPT6).
 
 - **Won:** keep it, and note it in the ledger.
 - **Lost:** Kill in the ledger with the numbers, and consider undoing it.

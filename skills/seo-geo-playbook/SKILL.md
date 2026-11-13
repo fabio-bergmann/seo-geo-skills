@@ -4,7 +4,7 @@ description: Runs SEO and GEO (AI search visibility) for one website on a daily,
 license: MIT
 metadata:
   author: Fabio Bergmann
-  version: 1.0.7
+  version: 1.0.8
 ---
 
 # SEO and GEO Playbook
@@ -51,7 +51,7 @@ You have no memory between runs, so everything lives in `seo/` in the site's rep
 ## Weekly (the review)
 
 1. **AI answers:** run the prompt set again (ai-visibility-check). Read the trend over weeks, never one run.
-2. **Google:** clicks, impressions and position per page, the last 28 days against the 28 before, brand and non-brand apart (Search Console's branded queries filter, G-BRANDED).
+2. **Google:** clicks, impressions and position per page, the last 28 days against the 28 before, brand and non-brand apart (Search Console's branded queries filter, G-BRANDED). First check Google's Search Status Dashboard: if an update is rolling out, note it in the report and read no Google ranking or click moves until a week after it ends (G-STATUS, G-CORE).
 3. **Page 2 to page 1:** pages at positions 8–20 with impressions are the cheapest wins (seo-page-refresh).
 4. **The plan:** run every planned topic through seo-page-writer's gates. Write within the pace.
 5. **Pitches:** third-party pages the AI answers cite that name rivals but not the brand (ai-visibility-check).
